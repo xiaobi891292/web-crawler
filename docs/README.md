@@ -20,7 +20,7 @@
 待完善
 
 ## 主要贡献者
-感谢以下Datawhale成员对项目推进作出的贡献(排名不分先后)：
+感谢以下同学对本项目推进做出的贡献（排名不分先后）：
 
 <table align="center" style="width:80%;">
 <thead>
@@ -47,7 +47,9 @@
 </table>
 
 ## 关注我们
-<div align=center><img src="images/qrcode.jpeg" width = "250" height = "270"></div>
+<div align=center>
+<p>扫描下方二维码关注公众号：Datawhale</p>
+<img src="images/qrcode.jpeg" width = "180" height = "180"></div>
 &emsp;&emsp;Datawhale，一个专注于AI领域的学习圈子。初衷是for the learner，和学习者一起成长。目前加入学习社群的人数已经数千人，组织了机器学习，深度学习，数据分析，数据挖掘，爬虫，编程，统计学，Mysql，数据竞赛等多个领域的内容学习，微信搜索公众号Datawhale可以加入我们。
 
 ## LICENSE
