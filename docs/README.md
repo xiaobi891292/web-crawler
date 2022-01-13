@@ -1,4 +1,4 @@
-# 网络爬虫技术 Web-Crawler
+# 网络爬虫技术 Web-Crawler {docsify-ignore-all}
 
 [![](https://img.shields.io/github/watchers/xiaobi891292/web-crawler.svg?style=flat)](https://github.com/xiaobi891292/web-crawler/watchers)
 [![](https://img.shields.io/github/stars/xiaobi891292/web-crawler.svg?style=flat)](https://github.com/xiaobi891292/web-crawler/stargazers)
@@ -14,36 +14,7 @@
 - 自学形式：
 - 学习安排（待补充）：
     - Task01（3天）：阅读第1章的第1.1、1.2节
-
-## 项目结构
-<pre>
-codes--------------------------------------Python代码
-docs---------------------------------------网络爬虫技术课程
-requirements.txt---------------------------运行环境依赖包
-</pre>
-
-## 运行环境
-
-### Python版本
-使用如下命令创建本地环境（Mini-Conda Python 3.8 Windows环境）：
-```shell
-conda create --prefix venv  python=3.8
-```
-
-### 安装相关的依赖包
-```shell
-conda install --yes --file requirements.txt
-```
-
-### Conda批量导出环境中所有组件
-```shell
-conda list -e > requirements.txt
-```
-
-### 本地启动docsify
-```shell
-docsify serve ./docs
-```
+  
 
 ## 参考文献
 待完善
