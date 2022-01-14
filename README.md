@@ -32,12 +32,12 @@ conda create --prefix venv python=3.8
 
 ### 安装相关的依赖包
 ```shell
-conda install --yes --file requirements.txt
+pip install -r requirements.txt
 ```
 
-### Conda批量导出环境中所有依赖包
+### pip批量导出环境中所有组件
 ```shell
-conda list -e > requirements.txt
+pip freeze > requirements.txt
 ```
 
 ### 本地启动docsify
