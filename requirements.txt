@@ -1,2 +1,4 @@
 certifi==2021.10.8
 wincertstore==0.2
+requests==2.20.0
+pymysql==0.10.1
