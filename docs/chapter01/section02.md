@@ -1,10 +1,10 @@
-# 第二节 web网页的基础
+# 1.2 web网页的基础
 
-## 1.网页组成
+## 1.2.1 网页组成
 
 &emsp;&emsp; 我们平常所看到的网页由三部分组成，分别为HTML，CSS，JavaScript.三者在网页中分别扮演不同的作用。HTML是用来搭建网页的结构；CSS用来控制网页的外观；JavaScript用来控制网页的行为
 
-## 2.HTML
+## 1.2.2 HTML
 
 - 简介
 
@@ -166,7 +166,7 @@
     | \<style>   | 样式信息               |
     | \<video>   | 视频                   |
 
-## 3.CSS
+## 1.2.3 CSS
 
 - 简介
 
@@ -225,7 +225,7 @@
 	  | [attribute^=value] | a[src^="https"] | 选择每一个src属性的值以“https"开头的元素 |
 	
 
-## 4.JavaScript
+## 1.2.4 JavaScript
 
 &emsp;&emsp;JavaScript,也就是我们平常经常听到的JS。它主要是控制网页的行为和动态的数据加载。在JS逆向中，会用到很多关于JavaScript的知识。如果要想深入学习爬虫的知识，还是需要学习一些JavaScript的知识。
 
