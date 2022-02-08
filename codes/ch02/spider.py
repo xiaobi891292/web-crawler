@@ -102,8 +102,8 @@ def parse_detail(html):
 def connectDB():
     dbhost = "127.0.0.1"
     dbName = "cui_spider"
-    dbuser = "root"
-    dbpassword = "Tywlcyj_12$%"
+    dbuser = "your mysql username"
+    dbpassword = "your mysql password"
     # 此处添加charset='utf8'是为了在数据库中显示中文，此编码必须与数据库的编码一致
     db = pymysql.connect(host=dbhost, user=dbuser, password=dbpassword, database = dbName, charset='utf8')
     return db
