@@ -7,4 +7,7 @@
       * [1.5 session cookies原理](chapter01/section05.md)
     * 第2章 静态网页
       * [2.1 静态网页实战](chapter02/section01.md) 
-  
+    * 第3章 Scrapy框架
+      * [3.1 Scrapy框架介绍](chapter03/section01.md)
+      * [3.2 Scrapy讲解](chapter03/section02.md)
+      * [3.3 Spider编写](chapter03/section03.md)
