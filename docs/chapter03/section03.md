@@ -63,27 +63,27 @@ Spider的类，类中有三个属性，一个方法。
 。它不提供任何特殊的功能。它只提供了一个默认的**start_requests
 方法**实现。该方法从**start_urls**属性中发送Request
 ，并为每个响应对象调用回调方法。下面是Spider类的属性和方法的简略介绍。具体使用和介绍，请查看Scrapy官方文档。
-- name:（str）定义爬虫名字的字符串。
-- allowed_domains：**list** 定义允许抓取的站点的字符串的可选列表。
-- start_urls：**list**Spider 定义开始抓取的url的列表，初始请求从这里生成。
-- custom_settings：**dict** 定义本Spider
+- **name**:（str）定义爬虫名字的字符串。
+- **allowed_domains**：**list** 定义允许抓取的站点的字符串的可选列表。
+- **start_urls**：**list**Spider 定义开始抓取的url的列表，初始请求从这里生成。
+- **custom_settings**：**dict** 定义本Spider
   的设置，此设置会覆盖项目的全局设置，而此设置必须在初始化前被更新，所以它必须定义成类变量。
-- crawler：该属性由from_crawler()
+- **crawler**：该属性由from_crawler()
   类方法在初始化类后设置的。Crawler对象中包含了很多项目组件，利用它我们可以获取项目的配置信息。
-- settings：一个Settings对象，利用它我们可以直接获取项目的全局设置变量。
-- logger：该属性用Spider的名子创建python日志。你可以使用它发送日志信息。
-- from_crawler(crawler, *args, **kwargs)
+- **settings**：一个Settings对象，利用它我们可以直接获取项目的全局设置变量。
+- **logger**：该属性用Spider的名子创建python日志。你可以使用它发送日志信息。
+- **from_crawler(crawler, *args, **kwargs)**
   ：此方法是Scrapy用来创建爬行器的类方法。
-- start_requests()：此方法用于生成初始请求，默认调用使用start_urls里面的url
+- **start_requests()**：此方法用于生成初始请求，默认调用使用start_urls里面的url
   来构造Request。默认是GET请求，如果使用POST请求，我们需要重写此方法。
-- parse(response)：此方法是Scrapy处理Response的默认回调
-- log(message[, level, component])：此方法通过Scrapy日志记录器记录日志信息。
-- closed(reason)：此方法在Spider关闭时，被调用。
+- **parse(response)**：此方法是Scrapy处理Response的默认回调
+- **log(message[, level, component])**：此方法通过Scrapy日志记录器记录日志信息。
+- **closed(reason)**：此方法在Spider关闭时，被调用。
 
 &emsp;&emsp;上面是此类的所有属性和方法。Scrapy中还提供了一些Spider
 类，用于处理特殊的情况。具体的用法就不再介绍了，还请小伙伴们自己学习下。
 
-##3.3.3 代码编写
+## 3.3.3 代码编写
 
 &emsp;&emsp;在第二章中，我们就已经见到这个网站，同时分析了该网站的url
 构成规则。在这里就不过多介绍了，我们直接上代码！！！我们一点点写出来。
@@ -133,7 +133,7 @@ class QuotesSpider(scrapy.Spider):
         """解析页面，获得页面中每个电影的链接，并发起请求"""
         #使用下xpath获取所有含有属性为href的标签
         hrefs =  response.xpath('//*[@id="index"]/div[1]/div[[1]/div//a/@href')
-        #遍历所所得href属性值的标签，使用getall()方法获得其值，否则是一个选择器列表。
+        #遍历所所得href属性值的标签，使用getall()方法获得其值，否则是一个选择器对象列表。
         for href in hrefs.getall():
             #使用urljoin方法拼接完整的url
             new_url = response.urljoin(href)

@@ -11,8 +11,9 @@
 库（数据存储会用到）。对于pymysql,我们在前面的章节中，我们已经安装了，就不再介绍了。安装Scrapy
 框架，我们一般在命令行中输入以下命令：
 
-`pip install scrapy`
-
+```commandline
+pip install scrapy
+```
 ## 3.2.2 目标确定
 
 &emsp;&emsp;
@@ -35,12 +36,13 @@
 ）。如果不设置，则project_dir与myproject同名。
 
 &emsp;&emsp;接下来，我们创建一个名为tutorial项目。我们在终端中输入命令：
-`scrapy startproject turorial`
-
+```commandline
+scrapy startproject turorial
+```
 
 
 &emsp;&emsp;运行完毕后，我们将在终端窗口看到如下代码。
-```shell
+```commandline
 New Scrapy project 'tutorial', using template directory 'd:\conda\lib\site-packages\scrapy\templates\project', created in:
     D:\tutorial（你自己的项目路径）
 
@@ -62,11 +64,11 @@ You can start your first spider with:
 ```
 
 下面我们按照提示，输入以下命令行：
-```shell
+```commandline
 cd tutorial
 ```
 &emsp;&emsp;然后，我们进入了项目文件夹中。然后输入下面的命令
-```shell
+```commandline
 scrapy genspider quotes quotes.com
 ```
 
@@ -76,7 +78,7 @@ scrapy genspider quotes quotes.com
 &emsp;&emsp;
 此时，小伙伴有可能会有疑惑，为什么要运行这个命令，这个命令是否可以更改？这个命令那些是根据自己的需要更改的？下面我们先解释下这个命令。先看下，官方文档给出这条命令的语法。
 
-> scrapy genspider [-t template] <name> <domain>
+> scrapy genspider [-t template] name domain
 - name:你设置的爬虫名称。
 - domain:这个参数用来生成allowed_domains 和 start_urls属性。我们在后面会看到。
 - \[-t template\]:这个参数提供了一些爬虫模板，用于特殊的抓取。分别为basic、crawl 
