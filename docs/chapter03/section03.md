@@ -72,7 +72,7 @@ Spider的类，类中有三个属性，一个方法。
   类方法在初始化类后设置的。Crawler对象中包含了很多项目组件，利用它我们可以获取项目的配置信息。
 - **settings**：一个Settings对象，利用它我们可以直接获取项目的全局设置变量。
 - **logger**：该属性用Spider的名子创建python日志。你可以使用它发送日志信息。
-- **from_crawler(crawler, *args, **kwargs)**
+- **from_crawler(crawler, \*args, \*\*kwargs)**
   ：此方法是Scrapy用来创建爬行器的类方法。
 - **start_requests()**：此方法用于生成初始请求，默认调用使用start_urls里面的url
   来构造Request。默认是GET请求，如果使用POST请求，我们需要重写此方法。

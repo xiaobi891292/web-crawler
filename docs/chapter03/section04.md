@@ -37,8 +37,8 @@ including its __init__ method.
 undefined field names .(当使用未定义的字段名时，将引发KeyError.)
   - Item exporters can export all fields by default even 
      if the first scraped object does not have values for all of
-them(在默认情况下，Item输出器能够输出所有字段，即使第一个抓取的对象没有任何字段值。)
-  
+     them(在默认情况下，Item输出器能够输出所有字段，即使第一个抓取的对象没有任何字段值。)
+
 &emsp;&emsp;Item also allows defining field metadata, which 
     can be 
     used to customize serialization.
@@ -58,7 +58,7 @@ Item对象除了提供字典的方法，也提供了以下API：
 &emsp;&emsp;上面我们引用了Scrapy官方文档中对Item
 的介绍。我在描述中肯可能有些许错误。希望小伙伴们能看看官方文档。
 
-##3.4.2 Item的编写
+## 3.4.2 Item的编写
 在上面我们已经了解Item，现在我们开始进行编写吧！！！我们在项目文件夹中找的items.py文件。原始代码如下：
   ```python
 # Define here the models for your scraped items
@@ -74,7 +74,7 @@ class TutorialItem(scrapy.Item):
     # name = scrapy.Field()
     pass
 
-```
+  ```
 在上面的代码中我们可以看到一个import语句和一个继承了Scrapy.
 Item对象的TutorialItem类。在TutorialItem
 类中，已经给出了代码示例，我们可以按照给出的示例来编写我们的代码。
@@ -121,9 +121,10 @@ class QuotesSpider(scrapy.Spider):
         yield item
 ```
 我们编写xpath语句，为其字段赋值。我们在写好Xpath后，可以使用Scrapy shell进行验证。好了，我们整个quotes.
-py代码已经写好了。我们这一小节的任务也就完成了。完整的代码请点击[完整代码](../../codes/ch03/tutorial/tutorial/spiders/quotes.py)
+py代码已经写好了。我们这一小节的任务也就完成了。完整的代码请点击[完整代码](../代码.md)
 
 ## 3.4.4 总结
+
 &emsp;&emsp;在本小节中，我我们学习Item,并编写了item.
 py文件，同时也对上一节为编写的部分进行完善。下一小节，我们将要对爬取的数据存储到数据库中,并学习Item 
 Pipelines相关知识，并编写pipelines.py文件。
