@@ -37,7 +37,7 @@ pip install scrapy
 
 &emsp;&emsp;接下来，我们创建一个名为tutorial项目。我们在终端中输入命令：
 ```commandline
-scrapy startproject turorial
+scrapy startproject tutorial
 ```
 
 
