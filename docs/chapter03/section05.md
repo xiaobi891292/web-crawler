@@ -140,12 +140,12 @@ ITEM_PIPELINES = {
 在这里，我们可以看到ITEM_PIPELINES是一个字典，字典中的键就是我们自定义的Item pipeline，我们根据上述格式来编写即可。`项目名.
 pipelines.你自己定义的item pipeline的类名`。字典的值，取整数1-1000范围。数值越小，有优先级越高。
 
-&emsp;&emsp;好了，我们代码已经编写完成了。完整的代码请点击查看[完整代码](../codes/pipelines.md)
+&emsp;&emsp;好了，我们代码已经编写完成了。完整的代码请点击查看[完整代码](https://xiaobi891292.github.io/web-crawler/#/codes/ch03/pipelines.md)
 
 ## 3.5.4 小节
 &emsp;&emsp;本小节，我们学习了Item 
 Pipeline的相关知识，同时编写了代码完成了我们的需求。我们的项目也就到此完成了。我们下一小节中，将会介绍其他的Scrapy
-相关知识，帮助小伙伴们更地学会Scrpay。
+相关知识，帮助小伙伴们更好地学会Scrpay。
 
 - 参考资料
   - 《pyhon3网络爬虫实战第二版》

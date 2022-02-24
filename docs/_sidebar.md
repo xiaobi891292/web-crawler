@@ -10,5 +10,6 @@
     * 第3章 Scrapy框架
       * [3.1 Scrapy框架介绍](chapter03/section01.md)
       * [3.2 Scrapy讲解](chapter03/section02.md)
-      * [3.3 Spider编写](chapter03/section03.md)
-      * [3.4 Item编写与应用](chapter03/section04.md)
+      * [3.3 Spider介绍与应用](chapter03/section03.md)
+      * [3.4 Item介绍与应用](chapter03/section04.md)
+      * [3.5 Item Pipelines介绍与应用](chapter03/section05.md)
