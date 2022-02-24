@@ -121,7 +121,7 @@ class QuotesSpider(scrapy.Spider):
         yield item
 ```
 我们编写xpath语句，为其字段赋值。我们在写好Xpath后，可以使用Scrapy shell进行验证。好了，我们整个quotes.
-py代码已经写好了。我们这一小节的任务也就完成了。完整的代码请点击[完整代码](https://xiaobi891292.github.io/web-crawler/#/codes/quotes.md)
+py代码已经写好了。我们这一小节的任务也就完成了。完整的代码请点击[完整代码](https://xiaobi891292.github.io/web-crawler/#/codes/ch03/quotes.md)
 
 ## 3.4.4 总结
 
