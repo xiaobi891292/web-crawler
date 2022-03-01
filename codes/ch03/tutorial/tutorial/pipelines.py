@@ -5,12 +5,12 @@
 
 
 # useful for handling different item types with a single interface
-from itemadapter import ItemAdapter
 import pymysql
+
 
 class TutorialPipeline:
     @classmethod
-    def from_crawler(cls,crawler):
+    def from_crawler(cls, crawler):
         """从设置中，获取数据库中的设置"""
         cls.localhost = crawler.settings.get('LOCALHOST')
         cls.user = crawler.settings.get('USER')
@@ -20,11 +20,15 @@ class TutorialPipeline:
 
     def open_spider(self, spider):
         """该方法再Spider打开时被调用，连接数据库"""
-        self.db = pymysql.connect(host=self.localhost, user=self.user, password=self.password,database=self.database)
-        self.cursor = self.db.cursor()  #创建一个游标对象。
-        sql = "CREATE TABLE IF NOT EXISTS movie (name varchar(255),time varchar(255),grade char(8),category varchar(255))"#编写sql语句，在scrapytutorial数据库中movie表中创建字段名
-        self.cursor.execute(sql)
-        # self.db.commit()
+        self.db = pymysql.connect(host=self.localhost, user=self.user,
+                                  password=self.password,
+                                  database=self.database)
+        self.cursor = self.db.cursor()  # 创建一个游标对象。
+        sql = "CREATE TABLE IF NOT EXISTS movie (name varchar(255)," \
+              "time varchar(255),grade char(8),category varchar(255))"  #
+        # 编写sql语句，在scrapytutorial数据库中movie表中创建字段名
+        self.cursor.execute(sql)  # self.db.commit()
+
     def process_item(self, item, spider):
         """该方法被每一个item pipeline组件调用，插入数据"""
         name = item["name"]
@@ -33,9 +37,10 @@ class TutorialPipeline:
         category = ''
         for i in item["category"]:
             category = category + "," + i
-        insert_sql = 'INSERT INTO movie (name,time,grade,category) VALUES(%s,%s,%s,%s)'
+        insert_sql = 'INSERT INTO movie (name,time,grade,category) VALUES(%s,' \
+                     '%s,%s,%s)'
         try:
-            self.cursor.execute(insert_sql,(name,time,grade,category))
+            self.cursor.execute(insert_sql, (name, time, grade, category))
             self.db.commit()
         except:
             self.db.rollback()

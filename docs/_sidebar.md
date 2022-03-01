@@ -13,3 +13,5 @@
       * [3.3 Spider介绍与应用](chapter03/section03.md)
       * [3.4 Item介绍与应用](chapter03/section04.md)
       * [3.5 Item Pipelines介绍与应用](chapter03/section05.md)
+      * [3.6 项目设置与运行](chapter03/section06.md)
+      * [3.7 写在后面的话](chapter03/section07.md)

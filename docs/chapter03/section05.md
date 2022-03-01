@@ -142,7 +142,8 @@ pipelines.你自己定义的item pipeline的类名`。字典的值，取整数1-
 
 &emsp;&emsp;好了，我们代码已经编写完成了。完整的代码请点击查看[完整代码](https://xiaobi891292.github.io/web-crawler/#/codes/ch03/pipelines.md)
 
-## 3.5.4 小节
+
+## 3.5.4 小结
 &emsp;&emsp;本小节，我们学习了Item 
 Pipeline的相关知识，同时编写了代码完成了我们的需求。我们的项目也就到此完成了。我们下一小节中，将会介绍其他的Scrapy
 相关知识，帮助小伙伴们更好地学会Scrpay。

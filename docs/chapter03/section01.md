@@ -11,8 +11,7 @@ Scrapy是一个基于python
 
 ## 3.1.2 Scrapy框架组成
 
-&emsp;&emsp;
-我们认识一个框架，应该先分部了解每个组成和功能。就像医学中，为了解人体生命活动规律，我们也是从每个系统开始了解。那么，我们就先了解下Scrapy的每个组件和功能吧！
+&emsp;&emsp;我们认识一个框架，应该先分部了解每个组成和功能。就像医学中，为了解人体生命活动规律，我们也是从每个系统开始了解。那么，我们就先了解下Scrapy的每个组件和功能吧！
 
 &emsp;&emsp;首先我们先看下Scrapy官方文档给出的图.
 ![Scrapy框架图](../images/chapter03/scrapy.png)
@@ -71,7 +70,7 @@ Scrapy是一个基于python
 &emsp;&emsp;本小节，我们学习了Scrapy框架的架构，整个框架的运行过程。这些对于使用Scrapy
 框架是重要的！希望小伙伴好好理解！！！
 
-&emsp;&emsp;参考内容：
-- 《python3网络爬虫开发实战》
-- Scrapy官方文档
-- 百度百科上Scrapy介绍
+- 参考内容：
+  - 《python3网络爬虫开发实战》
+  - Scrapy官方文档
+  - 百度百科上Scrapy介绍
