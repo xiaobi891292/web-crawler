@@ -64,6 +64,7 @@ scrapy crawl quotes
 
 ```
 2. 我们来看下输出的结果。我们先看下不设置LOG_LEVEL时的结果。
+
 ```commandline
 2022-03-01 17:53:06 [scrapy.utils.log] INFO: Scrapy 2.5.0 started (bot: tutorial)
 2022-03-01 17:53:06 [scrapy.utils.log] INFO: Versions: lxml 4.6.3.0, libxml2 2.9.5, cssselect 1.1.0, parsel 1.6.0, w3lib 1.22.0, Twisted 21.7.0, Pytho
@@ -192,6 +193,7 @@ ed connection failure: Getting https://ssr1.scrape.center/detail/1 took longer t
  2022-03-01 18:02:46 [scrapy.core.engine] INFO: Spider closed (finished)
 ```
 3. 现在看下设置LOG_LEVEL的结果。
+
 ```commandli
 PS D:\web-crawler\codes\ch03\tutorial>
 ```
