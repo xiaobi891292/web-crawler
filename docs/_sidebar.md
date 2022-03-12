@@ -7,6 +7,8 @@
       * [1.5 session cookies原理](chapter01/section05.md)
     * 第2章 静态网页
       * [2.1 Requets介绍](chapter02/section01.md) 
+      * [2.2 Lxml 和 Beautiful Soup介绍](chapter02/section02.md)
+      * [2.3 Mysql介绍与使用](chapter02/section03.md)
       * [2.4 静态网页实战](chapter02/section04.md) 
     * 第3章 Scrapy框架
       * [3.1 Scrapy框架介绍](chapter03/section01.md)
