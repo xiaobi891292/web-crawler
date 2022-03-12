@@ -61,11 +61,9 @@ LOG_LEVEL = 'ERROR'#默认是DEBUG
 1. 我们打开命令行，输入以下命令。quotes是我们定义爬虫的名字。
 ```commandline
 scrapy crawl quotes 
-
 ```
 2. 我们来看下输出的结果。我们先看下不设置LOG_LEVEL时的结果。
-
-```commandline
+``` commandline
 2022-03-01 17:53:06 [scrapy.utils.log] INFO: Scrapy 2.5.0 started (bot: tutorial)
 2022-03-01 17:53:06 [scrapy.utils.log] INFO: Versions: lxml 4.6.3.0, libxml2 2.9.5, cssselect 1.1.0, parsel 1.6.0, w3lib 1.22.0, Twisted 21.7.0, Pytho
 n 3.8.10 (default, May 19 2021, 13:12:57) [MSC v.1916 64 bit (AMD64)], pyOpenSSL 20.0.1 (OpenSSL 1.1.1k  25 Mar 2021), cryptography 3.4.7, Platform Wi
