@@ -1,6 +1,6 @@
 # 2.2 Lxml和Beautiful Soup介绍
 
-&emsp;&emsp;在上一小节中，我们介绍了Requests的使用。通过Requests,我们可以获得网页的源代码，但是我们怎么从网页的源代码中获得我们的所需的的数据呢？本小节介绍的内容，就会帮助我们实现这个功能。现在让我们一起学习一下吧！！！
+&emsp;&emsp;在上一小节中，我们介绍了 Requests 的使用。通过 Requests 库,我们可以获得网页的源代码，但是我们怎么从网页的源代码中获得我们的所需的的数据呢？本小节介绍的内容，就会帮助我们实现这个功能。现在让我们一起学习一下吧！！！
 
 ## 2.2.1 Lxml介绍
 
@@ -179,8 +179,7 @@ result = html.xpath('//body/div/ul/li[position()<2]')
 ```
 
 &emsp;&emsp;
-好了xpath
-的介绍就到这里，不知道大家掌握没？如果没掌握，也没有关系，我们在实战中就会有更深的体会，帮助你理解。下面我们来介绍另一个网页解析的包Beautiful 
+好了 xpath 的介绍就到这里，不知道大家掌握没？如果没掌握，也没有关系，我们在实战中就会有更深的体会，帮助你理解。下面我们来介绍另一个网页解析的包 Beautiful 
 Soup。
 
 ## 2.2.2 Beautiful Soup介绍
@@ -224,9 +223,9 @@ Beautiful Soup支持Python标准库中的HTML解析器,还支持一些第三方�
 
 #### 2.2.2.3.1基本使用
 
-我们只要将我们所需要的解析的文档传入BeautifulSoup的构造方法中，同时指定我们所需要的解析器的类型，我们就可以得到一个bs4.BeautifulSoup对象。这时，我们就可以采取一定的规则进行数据的提取。
+&emsp;&emsp;我们只要将我们所需要的解析的文档传入BeautifulSoup的构造方法中，同时指定我们所需要的解析器的类型，我们就可以得到一个bs4.BeautifulSoup对象。这时，我们就可以采取一定的规则进行数据的提取。
 
-首先，我们来引入一个测试的文档，供我们学习之用。下面的文档来自于官方的文档。
+&emsp;&emsp;首先，我们来引入一个测试的文档，供我们学习之用。下面的文档来自于官方的文档。
 ``` html
 <html><head><title>The Dormouse's story</title></head>
     <body>
@@ -242,7 +241,7 @@ and they lived at the bottom of a well.</p>
 
 ```
 
-我们看到，这时的html文档的结构不是完整的，不过不用担心。BeautifulSoup会帮我们修复它。这也是前面提到的容错能力强的体现。
+&emsp;&emsp;我们看到，这时的html文档的结构不是完整的，不过不用担心。BeautifulSoup会帮我们修复它。这也是前面提到的容错能力强的体现。
 
 ```python
 from bs4 import BeautifulSoup
@@ -256,7 +255,7 @@ soup = BeautifulSoup(ceshi,'lxml')
 
 
 #### 2.2.2.3.2节点选择
-我们在访问文档树时，我们可以通过调用节点的名称，就可以选择对应的节点。如果我们想选取titlle节点，我们可以用如下写法。
+&emsp;&emsp;我们在访问文档树时，我们可以通过调用节点的名称，就可以选择对应的节点。如果我们想选取titlle节点，我们可以用如下写法。
 ``` python
 from bs4 import BeautifulSoup
 soup = BeautifulSoup(ceshi,'lxml')
@@ -289,6 +288,7 @@ print(soup.title.name)
 title
 ```
 	我们可以看到，我们获得到我们所对应节点的名字。
+	
 	- attrs属性
 
 	对于一个Tag对象，可能会有多个属性。例如id class属性。如果我们想获取所选节点的属性，我们可以这样写。代码如下：
@@ -328,6 +328,7 @@ print(soup.p.string)
 	The Dormouse's story
 ```
 **注意，如果一个节点下，有多个节点，这时我们无法直接调用string属性获取文本内容.**
+
 	- strings属性
 
 	如果一个节点下有多个字符串，我们可以使用strings属性构造循环获得。代码如下：
@@ -378,7 +379,7 @@ print(soup.p.string)
 	
 - 父节点
 
-	查看我们示例代码，我们可以看到对于一个节点，也就是tag，都有父节点。我们可以通过一下两个tag属性获得。
+&emsp;&emsp;查看我们示例代码，我们可以看到对于一个节点，也就是tag，都有父节点。我们可以通过一下两个tag属性获得。
 
 	- parent属性
 
@@ -598,8 +599,10 @@ print(soup.find_all(class_='sister')
 
 
 ## 2.2.2小节
-&emsp;&emsp;本小节，我们学习了两个网页数据的解析方式于和工具，分别为 Lxml 和 Beautiful Soup。他们两个各有优点，我们不需要全部掌握，只掌握其中一个即可。在这里，告诉你个小技巧，现在，每个浏览器内置了开发者工具，我们可以选取对应的元素，复制其响应的Xpath或者CSS选择器。
+&emsp;&emsp;本小节，我们学习了两个网页数据的解析方式于和工具，分别为 Lxml 和 Beautiful Soup。他们两个各有优点，我们不需要全部掌握，只掌握其中一个即可。在这里，告诉你个小技巧，现在，每个浏览器内置了开发者工具，我们可以选取对应的元素，复制其响应的 Xpath 或者 CSS 选择器。
 
+ --------
+ 
 - 参考内容
 	- 《python3网络爬虫开发实战第二版》
 	- [Beautiful Soup官方文档](https://www.crummy.com/software/BeautifulSoup/bs4/doc/)

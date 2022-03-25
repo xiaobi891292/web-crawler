@@ -1,4 +1,5 @@
 # 2.1 Requests介绍
+# 
 &emsp;&emsp;在上一章中，我们已经了解了一些有关爬虫的基础知识，并没有对其中提及的库做详细的介绍。本节内容将会为大家介绍Requests
 库。这个Requests库在后面的内容将会用到很多，小伙伴们要好好学习啊！！！
 
@@ -31,11 +32,12 @@ print(response.cookies)
 print(response.content)
 ```
 
-## 2.1.2 request对象
-&emsp;&emsp;我们学习Requests,我们需要先了解request对象。request对象将一直伴随左右。如果像更好的了解，官方的API
+## 2.1.2 Request 对象
+
+&emsp;&emsp;我们学习Requests,我们需要先了解request对象。request对象将一直伴随左右。如果想更好的了解，官方的API
 是一个不错的选择。这里就不在过多介绍了。请查看[参考资料](https://docs.python-requests.org/zh_CN/latest/api.html#id2)
 
-## 2.1.3 response对象
+## 2.1.3 Response 对象
 &emsp;&emsp;有关response对象的介绍，请查看[参考资料](https://docs.python-requests.org/zh_CN/latest/api.html#requests.Response)
 
 &emsp;&emsp;下面将列举了一些常用的reponse属性，大家可以记下来。
@@ -57,7 +59,7 @@ print(response.content)
 &emsp;&emsp;Requests包含了多种请求方式，这里主要介绍常见的get和post两种请求方式，对于delete、put、options
 请求方式有兴趣的同学可自行学习。
 
-### 2.1.4.1 GET请求
+### GET请求
 
 #### 简单请求
 下面是一个简单的GET请求，我们先以https://www.baidu.com为例。
@@ -98,7 +100,7 @@ print(response.text)
 ```
 
 
-### 2.1.4.2 POST请求
+### POST请求
 
 &emsp;&emsp;我们在实际应用中，我们需要向服务器提交表单数据。例如登录，上传文件。这时，我们就需要用POST请求方式。要实现POST
 请求方式很简单。我们只需要用一个data关键字参数。
@@ -125,15 +127,15 @@ print(response.text)
 "url": "http://httpbin.org/post"
 }
 ```
-### 2.1.4.3 GET和POST对比
+### GET 和 POST 对比
 
 &emsp;&emsp;我们用下面图列举两者的差别。
 ![GET与POST对比](../images/chapter02/section02/01.png)
 
-##2.1.5 定制请求头
+## 2.1.5 定制请求头
 
 &emsp;&emsp;我们在访问网站时，网站的服务器往往会根据User-Agent
-来判断是浏览器还是爬虫程序。如果是爬虫程序，服务器将会断开此次请求，我们也就不能从网站获取我们想要的数据。因此我们可以通过添加请求头，模拟浏览器进行访问。对于Requests所提供的请求方式，我们都可以进行自定义请求头。
+来判断是浏览器还是爬虫程序。如果是爬虫程序，服务器将会断开此次请求，我们也就不能从网站获取我们想要的数据。因此我们可以通过添加请求头，模拟浏览器进行访问。对于 Requests 所提供的请求方式，我们都可以进行自定义请求头。
 
 ```python
 import requests
@@ -316,7 +318,10 @@ except RequestException:
 &emsp;&emsp;对于错误和异常，请查看[参考资料](https://docs.python-requests.org/en/latest/api/)
 
 ## 2.1.11 小节
-&emsp;&emsp;本小节，我们学习了Requests库。了解了一些简单的用法和高级用法，希望小伙伴们要牢牢掌握Requests!!!
+&emsp;&emsp;本小节，我们学习了 Requests 库。了解了一些简单的用法和高级用法，希望小伙伴们要牢牢掌握Requests!!!
+
+------
+
 - 参考资料
   - [python学习笔记(requests模块)](https://blog.csdn.net/mkgdjing/article/details/87776319)
   - [requests官方文档](https://docs.python-requests.org/zh_CN/latest/index.html)
