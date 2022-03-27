@@ -1,9 +1,6 @@
 # 3.2 Scrapy讲解
 
-&emsp;&emsp;经过上一小节的学习，我们已经了解一些Scrapy
-框架的架构、数据流的过程。以下的小节中，将会为大家呈现一个完整的使用Scrapy
-框架进行数据抓取的全过程。在实现数据抓取的过程中，我也会为大家介绍Scrapy
-知识，让大家能够更快地掌握Scrapy框架，以实现自己的需求。现在我们就开始吧！！！
+&emsp;&emsp;经过上一小节的学习，我们已经了解一些Scrapy框架的架构、数据流的过程。以下的小节中，将会为大家呈现一个完整的使用 Scrapy 框架进行数据抓取的全过程。在实现数据抓取的过程中，我也会为大家介绍 Scrapy 知识，让大家能够更快地掌握Scrapy框架，以实现自己的需求。现在我们就开始吧！！！
 
 ## 3.2.1 安装与准备
 
@@ -30,10 +27,8 @@ pip install scrapy
 
 > scrapy startproject myproject [project_dir]
 
-&emsp;&emsp;此命令就是创建一个项目的命令。myproject是你指定的名称。project_dir
-是你自己指定的名称。如果你设置了project_dir，便在你设置的project_dir
-目录下创建项目文件夹（myproject
-）。如果不设置，则project_dir与myproject同名。
+&emsp;&emsp;此命令就是创建一个项目的命令。myproject 是你指定的名称。project_dir 是你自己指定的名称。如果你设置了 project_dir，便在你设置的 project_dir
+目录下创建项目文件夹（myproject）。如果不设置，则 project_dir 与 myproject 同名。
 
 &emsp;&emsp;接下来，我们创建一个名为tutorial项目。我们在终端中输入命令：
 ```commandline
@@ -67,30 +62,28 @@ You can start your first spider with:
 ```commandline
 cd tutorial
 ```
-&emsp;&emsp;然后，我们进入了项目文件夹中。然后输入下面的命令
+然后，我们进入了项目文件夹中。然后输入下面的命令
 ```commandline
 scrapy genspider quotes quotes.com
 ```
 
-&emsp;&emsp;这时，我们再观察tutorial/tutorial/spiders
-中会多出一个文件quotes.py。在这个文件中我们解析响应。
+&emsp;&emsp;这时，我们再观察tutorial/tutorial/spiders中会多出一个文件quotes.py。在这里，我们编写爬虫的规则和要提取的内容。
 
 &emsp;&emsp;
 此时，小伙伴有可能会有疑惑，为什么要运行这个命令，这个命令是否可以更改？这个命令那些是根据自己的需要更改的？下面我们先解释下这个命令。先看下，官方文档给出这条命令的语法。
 
 > scrapy genspider [-t template] name domain
 - name:你设置的爬虫名称。
-- domain:这个参数用来生成allowed_domains 和 start_urls属性。我们在后面会看到。
-- \[-t template\]:这个参数提供了一些爬虫模板，用于特殊的抓取。分别为basic、crawl 
-  、csvfeed、 xmlfeed。如果不设置，则为默认的模板。
+- domain:这个参数用来生成allowed_domains 和 start_urls 属性。我们在后面会看到。
+- \[-t template\]:这个参数提供了一些爬虫模板，用于特殊需求的抓取。分别为basic、crawl 、csvfeed、 xmlfeed。如果不设置，则为默认的模板。
 
-&emsp;&emsp;
-在这里，你可能会问了，为什么在我们这个项目中不需要设置模板，原因很简单，就是用基本的模板就可以满足我们的需求。其他模板的具体介绍和用法，就需要小伙伴们阅读文档，自己学习了。
+&emsp;&emsp;在这里，你可能会问了，为什么在我们这个项目中不需要设置模板，原因很简单，就是用基本的模板就可以满足我们的需求。其他模板的具体介绍和用法，就需要小伙伴们阅读文档，自己学习了。
 
 ## 3.2.4 总结
-&emsp;&emsp;本小节，我们学习了Scrapy项目的前期准备，并了解了Scrapy 项目的文件结构,
+&emsp;&emsp;本小节，我们学习了 Scrapy 项目的前期准备，并了解了Scrapy 项目的文件结构,
 并开始了一些项目的步骤。下一章节，就会来编写代码了，小伙伴们，做好准备哦！！
 
+--------
 - 参考资料
   - 《python3网络爬虫开发实战》
   - Scrapy官方文档
