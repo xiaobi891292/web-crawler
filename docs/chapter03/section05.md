@@ -1,27 +1,27 @@
 # 3.5Item Pipeline介绍和编写
 
 &emsp;&emsp;在上一小节中，我们学习了item，并对其进行代码的编写。不知道小伙伴们掌握了没？本小节，我们将学习**Item 
-Pipeline**,并实现将数据存储到数据库中的功能。让我们来一起了解下吧！！！
+Pipeline**，并实现将数据存储到数据库中的功能。让我们来一起了解下吧！！！
 
 ## 3.5.1 Item Pipeline简单介绍
 
-&emsp;&emsp;Item Pipeline是一个python类，它实现一个简单的方法。它接收一个Item,
+&emsp;&emsp;Item Pipeline是一个python类，它接收一个Item,
 并且对其执行操作。同时，决定该Item是否继续执行，还是被丢弃。整个流程就是，当spider抓取一个Item时，该Item传递给Item 
-Pipeline。在Item Pipeline中，根据我们定义的方法进行处理该Item。可以说，Item Pipeline是处理item的中间件。
+Pipeline。在Item Pipeline中，根据我们定义的方法进行处理该Item。可以说，Item Pipeline是处理Item的中间件。
 
 &emsp;&emsp;在Item Pipeline中，我们可以实现以下功能：
 
 - 清洗HTML数据
 - 验证数据（检查Item中是否包含该字段）
 - 检查是否重复（删除重复的Item）
-- 将抓取的数据存储在数据中
+- 将抓取的数据存入数据库
 
 ## 3.5.2 Item Pipeline详细介绍
 
-&emsp;&emsp;我们在上面我们已经介绍了Item Pipeline的具体用处，那我们应该怎么自定义一个符合我们所需要的功能的Item 
-Pipelien呢?在实现之前我们还是要对Item Pipeline多些了解。
+&emsp;&emsp;上面介绍了Item Pipeline的具体用处，那我们如何来自定义一个符合所需功能的Item 
+Pipelien呢？
 
-&emsp;&emsp;在前面我们已经提到，每个Item Pipeline都是一个python类。它必须实现以下方法：
+&emsp;&emsp;正如前面所说，每个Item Pipeline都是一个python类。它必须实现以下方法：
 
 - **process_item(self,item,spider)**
 
@@ -29,7 +29,7 @@ Pipelien呢?在实现之前我们还是要对Item Pipeline多些了解。
       2.该方法必须返回Item类型的值或者抛出一个DropItem异常。
       3.被删除Item将不再被其他的Item Pipeline继续处理。
 
-&emsp;&emsp;此外，除了必须要实现的方法外，还有另外三个方法：
+&emsp;&emsp;除了必须要实现的方法外，它还有另外三个方法：
 - **open_spider(self,spider)**
 
         1.该方法将在Spider开启时被自动调用。
@@ -49,7 +49,7 @@ Pipelien呢?在实现之前我们还是要对Item Pipeline多些了解。
 Pipeline进行了深度介绍，不知道小伙伴掌握了没？如果没掌握的话，也没事。下面我们将编写代码，我们可以利用这次机会来加深下对Item 
 Pipeline的认识。
 
-我们在项目目录中找到pipelines.py的文件，我们在这个文件下进行编写我们的代码。在没编写前，文件是这个样子的。
+在项目目录中找到pipelines.py文件，我们将在该文件中编写代码。在没编写前，文件是这个样子的。
 ```python
 # Define your item pipelines here
 #
@@ -65,15 +65,15 @@ class TutorialPipeline:
     def process_item(self, item, spider):
         return item
 ```
-在这里，我们看到文件中，已经自动为我们生成了一些内容。一个TutorialPipeline的类，以及一个process_item
-方法。同时，也有一些注释，帮助我们了解该文件的作用以及相关帮助我们文档的地址。
+可以看到，文件已经自动生成了一些内容。一个TutorialPipeline的类，以及一个process_item
+方法。文件中有一些注释，有助于我们了解该文件，注释中也提供了相关学习文档的地址。
 
-为了实现我们的需求，把爬取的内容存储的Mysql中，我们需要在文件中以下代码
+为了实现需求，我们把爬取的内容存储到Mysql中，在文件中写入以下代码
 ```python
 import pymysql
 ```
-接着我们在settings.py文件中，我们设置下关于Mysql的配置信息。在默认情况下，Scrapy抓取网站时是遵循robotx协议的，
-这样可能会导致我们想要抓取的数据抓取不到，因此我们把它给关闭。设置请求头，默认情况下是被注释掉的，我们需要使用它并给它重新赋值。
+接着，在settings.py文件中，我们设置关于Mysql的配置信息。Scrapy抓取网站时，默认遵循robotx协议，
+这样可能会导致我们想要抓取的数据抓取不到，因此我们把它给关闭。同时设置请求头，请求头默认是被注释掉的，我们取消注释并给它重新赋值。
 ```python
 LOCALHOST = 'localhost'
 USER = '你的账号名'
@@ -82,7 +82,7 @@ DATABASE = '你自己的数据库名'
 ROBOTSTXT_OBEY = False
 USER_AGENT = '你自己的UESR_AGENT'
 ```
-我们要需要在Item Pipeline中拿到这些配置信息，我们就需要调用from_crawler类方法。
+我们调用from_crawler类方法，从而在Item Pipeline中拿到这些配置信息。
 ```python
 class TutorialPipeline:
     @classmethod
@@ -94,7 +94,7 @@ class TutorialPipeline:
         cls.database = crawler.settings.get('DATABASE')
         return cls()
 ```
-我们已经从设置中拿到Mysql的配置信息，现在我们就要开始连接数据库了。这时，我们使用open_spider方法，连接Mysql。
+经过上面的设置，我们已经从设置中拿到Mysql的配置信息，现在可以开始连接数据库了。这里使用open_spider方法连接Mysql。
 ```python
     def open_spider(self, spider):
         """该方法再Spider打开时被调用，连接数据库"""
@@ -103,7 +103,7 @@ class TutorialPipeline:
         sql = "CREATE TABLE IF NOT EXISTS movie (name varchar(255),time varchar(255),grade char(8),category varchar(255))"#编写sql语句，在scrapytutorial数据库中movie表中创建字段名
         self.cursor.execute(sql)
 ```
-编写open_spider方法下的代码后，我们需要进行将数据插入到Mysql中。
+编写open_spider方法下的代码后，我们将数据插入Mysql中。
 ```python
     def process_item(self, item, spider):
         """该方法被每一个item pipeline组件调用，插入数据"""
@@ -123,29 +123,29 @@ class TutorialPipeline:
             self.db.rollback() #如果出现错误，进行数据库的回滚
         return item  #返回一个item 如果有其他的item pipeeline根据优先级可以再处理该item
 ```
-接着，我们进行一个收尾工作，我们用到close_spider方法
+最后，进行一个收尾工作，我们使用close_spider方法
 ```python
     def close_spider(self, spider):
         """该函数在Spider关闭时被调用"""
         self.cursor.close() #关闭游标对象
         self.db.close()  #断开数据库连接
 ```
-好了，我们代码已经编写完成了，但我们想要启用我们编写的Item Pipeline,我们还需要激活它。激活它，我们也是在设置中。在settings.
-py中找到ITEM_PIPELINES,在默认情况下，是被注释掉的。我们需要将其开启，删掉#号。
+至此，代码编写完成。但如果想要启用我们编写的Item Pipeline，还需要激活它。激活操作也是在设置中进行的，在settings.
+py中找到ITEM_PIPELINES,在默认情况下，这部分是被注释掉的。我们取消注释，将其开启。
 ```python
 ITEM_PIPELINES = {
    'tutorial.pipelines.TutorialPipeline': 300,
 }
 ```
-在这里，我们可以看到ITEM_PIPELINES是一个字典，字典中的键就是我们自定义的Item pipeline，我们根据上述格式来编写即可。`项目名.
+可以看到，ITEM_PIPELINES是一个字典，字典中的键就是我们自定义的Item pipeline，根据上述格式来编写即可。`项目名.
 pipelines.你自己定义的item pipeline的类名`。字典的值，取整数1-1000范围。数值越小，有优先级越高。
 
-&emsp;&emsp;好了，我们代码已经编写完成了。完整的代码请点击查看[完整代码](https://xiaobi891292.github.io/web-crawler/#/codes/ch03/pipelines.md)
+&emsp;&emsp;好了，代码已经编写完成了。完整的代码请点击查看[完整代码](https://xiaobi891292.github.io/web-crawler/#/codes/ch03/pipelines.md)
 
 
 ## 3.5.4 小结
 &emsp;&emsp;本小节，我们学习了Item 
-Pipeline的相关知识，同时编写了代码完成了我们的需求。我们的项目也就到此完成了。我们下一小节中，将会介绍其他的Scrapy
+Pipeline的相关知识，同时编写代码完成了需求。我们的项目也就到此完成了。下一小节中，我们将会介绍其他的Scrapy
 相关知识，帮助小伙伴们更好地学会Scrpay。
 
 - 参考资料
