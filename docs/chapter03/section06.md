@@ -36,6 +36,7 @@ class QuotesSpider(scrapy.Spider):
 ```text
 全局的默认设置在scrapy.settings.default_settings模块。
 ```
+
 ### 3.6.1.3内置设置
 &emsp;&emsp;在Scrapy中，已经内置了许多设置。由于篇幅和水平的原因，在这里就不再过多介绍。如需深入了解，可以参考[Built-in 
 settings reference。](https://docs.scrapy.org/en/2.5/topics/settings.html)
@@ -63,7 +64,7 @@ LOG_LEVEL = 'ERROR'#默认是DEBUG
 scrapy crawl quotes 
 ```
 2. 我们来看下输出的结果。我们先看下不设置LOG_LEVEL时的结果。
-``` commandline
+``` text
 2022-03-01 17:53:06 [scrapy.utils.log] INFO: Scrapy 2.5.0 started (bot: tutorial)
 2022-03-01 17:53:06 [scrapy.utils.log] INFO: Versions: lxml 4.6.3.0, libxml2 2.9.5, cssselect 1.1.0, parsel 1.6.0, w3lib 1.22.0, Twisted 21.7.0, Pytho
 n 3.8.10 (default, May 19 2021, 13:12:57) [MSC v.1916 64 bit (AMD64)], pyOpenSSL 20.0.1 (OpenSSL 1.1.1k  25 Mar 2021), cryptography 3.4.7, Platform Wi
@@ -132,69 +133,15 @@ ilure.Failure twisted.internet.error.ConnectionLost: Connection to the other sid
 2022-03-01 17:56:17 [scrapy.downloadermiddlewares.retry] DEBUG: Retrying <GET https://ssr1.scrape.center/detail/11> (failed 1 times): [<twisted.python
 .failure.Failure twisted.internet.error.ConnectionLost: Connection to the other side was lost in a non-clean fashion: Connection lost.>]
 2022-03-01 17:56:17 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://ssr1.scrape.center/detail/91> (referer: https://ssr1.scrape.center/page/10)
-
-2022-03-01 17:56:17 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://ssr1.scrape.center/detail/72> (referer: https://ssr1.scrape.center/page/8)
-2022-03-01 17:56:17 [scrapy.core.scraper] DEBUG: Scraped from <200 https://ssr1.scrape.center/detail/73>
-{'category': ['剧情'],
- 'grade': '8.9',
- 'name': '十二怒汉 - 12 Angry Men',
- 'time': '1957-04-13 上映'}
-2022-03-01 17:56:17 [scrapy.core.scraper] DEBUG: Scraped from <200 https://ssr1.scrape.center/detail/71>
-{'category': ['剧情', '家庭', '传记'],
- 'grade': '8.9',
- 'name': '当幸福来敲门 - The Pursuit of Happyness',
- 'time': '2008-01-17 上映'}
-2022-03-01 17:56:32 [scrapy.extensions.logstats] INFO: Crawled 10 pages (at 2 pages/min), scraped 2 items (at 2 items/min)
-2022-03-01 17:56:48 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://ssr1.scrape.center/detail/21> (referer: https://ssr1.scrape.center/page/3)
-2022-03-01 17:56:48 [scrapy.downloadermiddlewares.retry] DEBUG: Retrying <GET https://ssr1.scrape.center/detail/74> (failed 1 times): [<twisted.python
-.failure.Failure twisted.internet.error.ConnectionLost: Connection to the other side was lost in a non-clean fashion: Connection lost.>]
-2022-03-01 17:57:18 [scrapy.downloadermiddlewares.retry] DEBUG: Retrying <GET https://ssr1.scrape.center/detail/92> (failed 1 times): [<twisted.python
-.failure.Failure twisted.internet.error.ConnectionLost: Connection to the other side was lost in a non-clean fashion: Connection lost.>]
-2022-03-01 17:57:18 [scrapy.core.scraper] DEBUG: Scraped from <200 https://ssr1.scrape.center/detail/91>
-{'category': ['奇幻', '冒险'],
- 'grade': '9.0',
- 'name': "哈利·波特与魔法石 - Harry Potter and the Sorcerer's Stone",
- 'time': '2002-01-26 上映'}
-2022-03-01 17:57:18 [scrapy.core.scraper] DEBUG: Scraped from <200 https://ssr1.scrape.center/detail/72>
-{'category': ['动画', '奇幻', '冒险'],
- 'grade': '8.9',
- 'name': '幽灵公主 - もののけ姫',
- 'time': '1998-05-01 上映'}
-2022-03-01 17:57:33 [scrapy.extensions.logstats] INFO: Crawled 11 pages (at 1 pages/min), scraped 4 items (at 2 items/min)
-2022-03-01 17:57:48 [scrapy.downloadermiddlewares.retry] DEBUG: Retrying <GET https://ssr1.scrape.center/page/7> (failed 2 times): [<twisted.python.fa
-ilure.Failure twisted.internet.error.ConnectionLost: Connection to the other side was lost in a non-clean fashion: Connection lost.>]
-2022-03-01 17:57:48 [scrapy.downloadermiddlewares.retry] DEBUG: Retrying <GET https://ssr1.scrape.center/page/4> (failed 2 times): [<twisted.python.fa
-ilure.Failure twisted.internet.error.ConnectionLost: Connection to the other side was lost in a non-clean fashion: Connection lost.>]
-2022-03-01 17:57:48 [scrapy.core.scraper] DEBUG: Scraped from <200 https://ssr1.scrape.center/detail/21>
-{'category': ['西部', '冒险'],
- 'grade': '9.1',
- 'name': '黄金三镖客 - Il buono, il brutto, il cattivo.',
- 'time': '1966-12-23 上映'}
-2022-03-01 17:58:28 [scrapy.extensions.logstats] INFO: Crawled 11 pages (at 0 pages/min), scraped 5 items (at 1 items/min)
-2022-03-01 17:58:38 [scrapy.downloadermiddlewares.retry] DEBUG: Retrying <GET https://ssr1.scrape.center/page/6> (failed 2 times): [<twisted.python.fa
-ilure.Failure twisted.internet.error.ConnectionLost: Connection to the other side was lost in a non-clean fashion: Connection lost.>]
-2022-03-01 17:58:38 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://ssr1.scrape.center/detail/82> (referer: https://ssr1.scrape.center/page/9)
-2022-03-01 17:58:38 [scrapy.downloadermiddlewares.retry] DEBUG: Retrying <GET https://ssr1.scrape.center/detail/75> (failed 1 times): [<twisted.python
-.failure.Failure twisted.internet.error.ConnectionLost: Connection to the other side was lost in a non-clean fashion: Connection lost.>]
-2022-03-01 17:58:38 [scrapy.downloadermiddlewares.retry] DEBUG: Retrying <GET https://ssr1.scrape.center/detail/22> (failed 1 times): [<twisted.python
-.failure.Failure twisted.internet.error.ConnectionLost: Connection to the other side was lost in a non-clean fashion: Connection lost.>]
-2022-03-01 17:58:38 [scrapy.downloadermiddlewares.retry] DEBUG: Retrying <GET https://ssr1.scrape.center/detail/12> (failed 1 times): [<twisted.python
-.failure.Failure twisted.internet.error.ConnectionLost: Connection to the other side was lost in a non-clean fashion: Connection lost.>]
-2022-03-01 17:58:38 [scrapy.downloadermiddlewares.retry] DEBUG: Retrying <GET https://ssr1.scrape.center/detail/1> (failed 1 times): User timeout caus
-ed connection failure: Getting https://ssr1.scrape.center/detail/1 took longer than 180.0 seconds..
-2022-03-01 17:58:58 [scrapy.core.scraper] DEBUG: Scraped from <200 https://ssr1.scrape.center/detail/82>
-{'category': ['喜剧', '科幻', '动画'],
- 'grade': '9.0',
- 'name': '机器人总动员 - WALL·E',
- 'time': '2008-06-27 上映'}
- .......由于篇幅原因，就不再给出。
+由于篇幅原因，内容不再一一列出
  2022-03-01 18:02:46 [scrapy.core.engine] INFO: Spider closed (finished)
+ 
 ```
-3. 现在看下设置LOG_LEVEL的结果。
 
-```commandli
-PS D:\web-crawler\codes\ch03\tutorial>
-```
+3. 现在看下设置LOG_LEVEL的结果。
+	```commandline
+	D:\web-crawler\codes\ch03\tutorial>
+	```
 &emsp;&emsp;在上面我们可以看到控制台没有输出任何信息，说明没有报错。因此我们在进行项目运行时，可以设置日志等级为error
 。在进行项目调试是，我们可以采取默认的等级，通过日志信息，来帮助我们来了解项目的运行情况。
 
