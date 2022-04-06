@@ -1,19 +1,17 @@
 # 3.6 项目设置与运行
 &emsp;&emsp;
-我们在上一小节中，我们已经对项目的主体代码已经编写完成。但我们怎么样去运行我们的项目呢？怎样去自定义一些设置呢？本小节，将会为小伙伴们解决这个疑惑。
+在上一小节中，我们完成了对项目主体代码的编写。但我们怎么样去运行项目？怎样去自定义一些设置呢？本小节将会为你解决这个疑惑。
 
 ## 3.6.1项目设置
 &emsp;&emsp;
-在Scrapy中，我们可以自定义一些设置，以满足于我们的需求。例如，我们在终端不想输出日志，只保留错误信息或者设置请求头又或者时否遵守robots.
-txt协议等，这些都可以自定义化。
+在Scrapy中，可以自定义一些设置，以满足于我们的需求。例如，我们在终端不想输出日志，只保留错误信息，又或者爬虫是否遵守robots.txt协议等，这些都可以自定义化。
 
 ### 3.6.1.1指定设置
-&emsp;&emsp;当我们使用Scrapy时,我们必须告诉Scrapy正在使用那些设置。我们可以使用SCRAPY_SETTINGS_MODULE
-。对于SCRAPY_SETTINGS_MODULE的值应该是Python路径语法**myproject.
+&emsp;&emsp;使用Scrapy时,可以通过SCRAPY_SETTINGS_MODULE来告诉Scrapy哪些设置正在被使用。SCRAPY_SETTINGS_MODULE的值应该是Python路径语法**myproject.
 settings**。同时，设置模块应该在搜索路径上。
 
 ### 3.6.1.2使用设置
-&emsp;&emsp;我们有不同的方式去更改设置，但不同的方式有不同的优先级。下面将按优先级的顺序进行列出。
+&emsp;&emsp;scrapy中的设置更改有着不同的方法，这些方法优先级不同。下面根据优先级列出了方法。
 - 通过命令行进行设置。
 ```commandline
 scrapy crawl myspider -s LOG_FILE=scrapy.log
@@ -26,7 +24,7 @@ class QuotesSpider(scrapy.Spider):
         'SOME_SETTING':'some value',
     }
 ```
-- 在设置模块中设置即在我们创建的项目中的settings.py中进行设置。
+- 在设置模块（settings.py）中设置。
 - 每个命令的默认设置。
 ```text
 每个Scrapytool命令行都有自己的默认设置，默认设置将覆盖全局设置。
@@ -42,7 +40,7 @@ class QuotesSpider(scrapy.Spider):
 settings reference。](https://docs.scrapy.org/en/2.5/topics/settings.html)
 
 ### 3.6.1.4编写设置
-&emsp;&emsp;在此次的项目中，我们需要进行自定义设置来满足我们的需求。下面将详细给出。
+&emsp;&emsp;此次项目中，我们自定义了以下设置来满足我们的需求。
 - USER_AGENT设置
 ```python
 #USER_AGENT = '你自己的浏览器上的USER_AGENT'
@@ -142,12 +140,12 @@ ilure.Failure twisted.internet.error.ConnectionLost: Connection to the other sid
 	```commandline
 	D:\web-crawler\codes\ch03\tutorial>
 	```
-&emsp;&emsp;在上面我们可以看到控制台没有输出任何信息，说明没有报错。因此我们在进行项目运行时，可以设置日志等级为error
-。在进行项目调试是，我们可以采取默认的等级，通过日志信息，来帮助我们来了解项目的运行情况。
+&emsp;&emsp;在上面我们可以看到，控制台没有输出任何信息，说明没有报错。因此我们在进行项目运行时，可以设置日志等级为error
+。在进行项目调试时，可以采取默认的等级，通过日志信息，帮助我们了解项目的运行情况。
 
 
 ## 3.6.4小结
-&emsp;&emsp;在本小节中，我们简单学习了项目的设置，并对项目的设置进行自定义化。同时，并运行了项目，查看运行的结果。不知道大家学会了没？
+&emsp;&emsp;在本小节中，我们简单学习了项目的设置，对项目的设置进行自定义化。同时，运行项目并查看运行结果。不知道大家学会了没？
 
 
 - 参考资料
