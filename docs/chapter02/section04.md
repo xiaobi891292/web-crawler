@@ -1,19 +1,17 @@
-# 基础爬虫案例实战
+# 2.4 基础爬虫案例实战
+&emsp;&emsp;
+经过前三小节的学习，虽然你学习爬虫工具的使用，但终究没有编写一个完整的爬虫程序。本节内容，你将会看到整个爬虫编写的过程，巩固前面学习的内容。
 
-实现静态网页数据的爬取
+## 2.4.1 准备工作
 
-## 1.准备工作
+- 安装 Rython3.8
+- 安装 Requests库
+- 安装 Lxml 或者 Beautiful soup
+- 安装 Mysql 和 Pymysql
 
-- 安装好python3，最低为3.6
-- 安装requests库
+## 2.4.2 爬取目标
 
-## 2.爬取目标
-
-以静态网页为案例进行爬取，链接为：
-
-https://ssr1.scrape.center/
-
-这是一个关于电影信息的网站
+&emsp;&emsp;本次实战以静态网页为案例进行爬取，链接为：https://ssr1.scrape.center/。 这是一个关于电影信息的网站
 
 ![image-01](../images/chapter02/01.png)
 
@@ -23,22 +21,22 @@ https://ssr1.scrape.center/
 
 我们这次实战的目标是：
 
-1. 利用requests爬取这个站点每一页的电影列表，顺着列表再爬取每个电影的详情页
-2. 用正则表达式提取每部电影的名称、封面、类别、上映时间、评分、剧情简介等内容
-3. 把以上爬取的内容保存到MySQL数据库中
-4. 使用多进程实现爬取的加速
+1. 利用 Requests 爬取这个站点每一页的电影列表，顺着列表再爬取每个电影的详情页
+2. 用 Lxml 或者 Beautiful Soup提取每部电影的名称、封面、类别、上映时间、评分等内容
+3. 把以上爬取的内容保存到 MySQL 数据库中
 
-## 3.爬取列表页
+## 2.4.3 爬取列表页
 
-首先我们需要观察列表页的结构和翻页规则，访问https://ssr1.scrape.center/ ，按F12打开浏览器开发者工具，在Elements中我们可以看到网页的html源代码
+&emsp;&emsp;首先我们需要观察列表页的结构和翻页规则，访问https://ssr1.scrape.center/ 
+，按F12打开浏览器开发者工具，在 Elements 中我们可以看到网页的 html 源代码
 
 ![image-03](../images/chapter02/03.png)
 
-我们可以看到每一个class为el-card的div标签对应一个电影的页面
+我们可以看到每一个 class 为 el-card 的 div 标签对应一个电影的页面
 
 ![image-04](../images/chapter02/04.png)
 
-鼠标点击开发者工具中的鼠标按钮，在移到点击会跳转进入电影详情页的电影标题位置，可以查看html这部分元素
+鼠标点击开发者工具中的鼠标按钮，在移到点击会跳转进入电影详情页的电影标题位置，可以查看 html 这部分元素
 
 ```html
 <a data-v-7f856186="" href="/detail/1" class="name">
@@ -46,9 +44,9 @@ https://ssr1.scrape.center/
 </a>
 ```
 
-我们可以看到这对应的是一个a标签而且带有href属性，这是一个超链接，其中href的值是/detail/1，这是一个相对于网站根目录https://ssr1.scrape.center/的路径，因此点击这个a标签就会跳转到https://ssr1.scrape.center/detail/1，再看看详情页对应的url也是https://ssr1.scrape.center/detail/1
-
-多观察多几个条目，我们发现电影详情页的url都是https://ssr1.scrape.center/detail/+数字 这种规律
+你可以看到这对应的是一个 a 标签而且带有 href 属性，这是一个超链接，其中href的值是/detail/1，这是一个相对于网站根目录https
+://ssr1.scrape.center/的路径，因此点击这个a标签就会跳转到https://ssr1.scrape.center/detail/1，再看看详情页对应的url也是https://ssr1.scrape.center/detail/1 ,
+你多观察多几个条目，你就会发现电影详情页的url都是https://ssr1.scrape.center/detail/+数字 的这种规律。
 
 
 
@@ -56,50 +54,46 @@ https://ssr1.scrape.center/
 
 ![image-05](../images/chapter02/05.png)
 
-在翻页处故技重施，我们知道翻页对应的超链接就是
-
-https://ssr1.scrape.center/page/+页数 这种套路
+在翻页处故技重施，我们知道翻页对应的超链接就是https://ssr1.scrape.center/page/+页数 这种套路
 
 总结：
 
-我们知道了访问所有页面的逻辑
+我们知道了访问所有页面的 URL 的构造规律，我们就可以使用 Requests 去请求相应的网站。
 
-访问不同的分页
+不同的分页的 URL 的构造规律：
 
 https://ssr1.scrape.center/page/+页数
 
-访问电影详情页
+电影详情页的 url 的构造规律：
 
 https://ssr1.scrape.center/detail/+数字
 
 
 
-## 4.代码实现
+## 2.4.3 代码实现
 
-### 4.1列表页的爬取
+### 2.4.3.1 列表页的爬取
 
 完成列表页的爬取，可以按这两个步骤来实现
 
-1. 遍历所有页码，构造10页的索引页URL
-2. 从每个索引页，分析提取每个电影的详情页URL
+1. 遍历所有页码，构造10页的索引页 URL
+2. 从每个索引页，分析提取每个电影的详情页 URL
 
 代码如下：
 
 ```python
 import requests
 import logging
-import re
+from lxml import etree
 from urllib.parse import urljoin
 
 
-'''
-定义基础变量
-设置日志等级和日志格式
-'''
+# 设置日志等级，具体的用法可以参见官方 logging 文档
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s: %(message)s')
 
-BASE_URL = 'https://ssr1.scrape.center'
-TOTAL_PAGE = 10
+# 设置基础变量，用大写表示。
+BASE_URL = 'https://ssr1.scrape.center' #初始的 url 
+TOTAL_PAGE = 10 #总的分页数
 
 '''
 判断状态码是否是200，如果是，直接返回页面的HTML代码，如果不是，则输出错误日志信息
@@ -111,41 +105,41 @@ def scrape_page(url):
         response = requests.get(url)
         if response.status_code == 200:
             return response.text
-        # 创建一条严重级别为ERROR的日志记录
+        # 创建一条事件级别为ERROR的日志记录
         logging.error('get invalid status code %s while scraping %s', response.status_code, url)
     except requests.RequestException:
-        #创建一条严重级别为ERROR的日志记录
+        #创建一条事件级别为ERROR的日志记录
         logging.error('error occurred while scraping %s', url, exc_info=True)
 
-'''
-接收page参数，实现列表页URL拼接，同时调用scrape_page()函数实现页面爬取
-'''
+
 def scrape_index(page):
+    """参数： page
+    功能：接收page参数,构造列表页的url，实现对列表页的爬取"""
     index_url = f'{BASE_URL}/page/{page}'
     return scrape_page(index_url)
 
-'''
-我们先前指导知道a标签里面的href属性与网站的根目录拼接正好是电影详情页的url
-因此我们用正则把所有a标签的href属性找出来
-<a.*?href="(.*?)".*?class="name">
-.*?是非贪婪匹配任意字符，也就是找上面那种格式中()内的内容
-使用re.findall()找到html内所有匹配的值
-这里函数的结尾使用了yield，使得函数变成一个对象，一个迭代器
-'''
-def parse_index(html):
-    pattern = re.compile('<a.*?href="(.*?)".*?class="name">')
-    items = re.findall(pattern, html)
-    if not items:
-        return []
-    for item in items:
-        detail_url = urljoin(BASE_URL, item)
-        logging.info('get detail url %s', detail_url)
-        yield detail_url
 
-'''
-根据TOTAL_PAGE进行遍历，logging.info()输出详情页
-'''
+# 我们知道 a 标签里面的 href 属性与网站的根目录拼接正好是电影详情页的url，因此我们把所有a标签的 href 属性找出来。这里函数的结尾使用了yield，使得函数变成一个迭代器。
+
+def parse_index(html):
+    """html：网页的源代码，字符串形式
+    功能：实现对列表页的解析，获得电影详情页的 url"""
+    #将html字符串转换为可用xpath解析的对象
+    tree = etree.HTML(html)  
+    
+    # 获得列表页中每个电影所对应的div标签
+    divs = tree.xpath('//*[@id="index"]/div[1]/div[1]/div')
+    for div in divs:
+        # 解析网页，获得每个电影的href属性的值，解析后获得的值是个列表。
+        href = div.xpath('./div/div/div[1]/a/@href')[0] 
+        # 调用 urljoin 方法构造电影详情页的 url 
+        detail_url = urljoin(BASE_URL, href)
+        logging.info('get detail url %s', detail_url)
+        yield detail_ur
+
+
 def main():
+    """根据TOTAL_PAGE进行遍历，logging.info()输出详情页"""
     for page in range(1, TOTAL_PAGE + 1):
         index_html = scrape_index(page)
         detail_urls = parse_index(index_html)
@@ -155,7 +149,7 @@ if __name__ == '__main__':
     main()
 ```
 
-### 4.2详情页爬取
+### 2.4.3.2 详情页爬取
 
 首先我们打开第一个详情页https://ssr1.scrape.center/detail/1
 
@@ -167,27 +161,12 @@ if __name__ == '__main__':
 
 ![image-06](../images/chapter02/06.png)
 
-然后移到想要爬取的内容，单击可查看源码
+然后移到想要爬取的内容，单击可查看源码,下面是两个例子，其他的大家可以自行寻找。
 
 封面：
 
 ![image-07](../images/chapter02/07.png)
 
-```html
-它的正则表达式：
-class="item.*?<img.*?src="(.*?)".*?class="cover">
-```
-
-
-
-电影名称：
-
-```html
-<h2 data-v-63864230="" class="m-b-sm">霸王别姬 - Farewell My Concubine</h2>
-
-它的正则表达式：
-<h2.*?class="m-b-sm">(.*?)</h2>
-```
 
 
 
@@ -195,78 +174,47 @@ class="item.*?<img.*?src="(.*?)".*?class="cover">
 
 ![image-08](../images/chapter02/08.png)
 
-```
-它的正则表达式：
-<button.*?category.*?<span>(.*?)</span>
-```
-
-上映时间：
-
-![image-09](../images/chapter02/09.png)
-
-```
-它的正则表达式：
-(\d{4}-\d{2}-\d{2})\s?上映)
-```
-
-评分：
-
-```
-<p data-v-63864230="" class="score m-t-md m-b-n-sm">9.5</p>
-
-它的正则表达式：
-<p.*?class="score m-t-md m-b-n-sm">(.*?)</p>
-```
-
-剧情简介：
-
-![image-10](../images/chapter02/10.png)
-
-```
-它的正则表达式：
-<div.*?class="drama".*?<p.*?>(.*?)</p>
-```
-
-
-
-根据对应数据的正则表达式，我们返回数据字典
+我们知道每个数据的位置，接下来我们继续编写解析详情页的代码。
 
 ```python
-'''
-获取html页面
-'''
+
 def scrape_detail(url):
+    """url：详情页的url 
+    功能：获得详情页的html代码"""
     return scrape_page(url)
 
-'''
-根据正则表达式提取所需数据
-返回数据字典
-'''
+
 def parse_detail(html):
-    cover_pattern = re.compile('class="router-link.*?<img.*?src="(.*?)".*?class="cover">', re.S)
-    cover = re.search(cover_pattern, html).group(1).strip() if re.search(cover_pattern, html) else None
-
-    name_pattern = re.compile('<h2.*?class="m-b-sm">(.*?)</h2>')
-    name = re.search(name_pattern, html).group(1).strip() if re.search(name_pattern, html) else None
-
-    categories_pattern = re.compile('<button.*?category.*?<span>(.*?)</span>', re.S)
-    categories = re.findall(categories_pattern, html) if re.findall(categories_pattern, html) else []
-
-    published_at_pattern = re.compile('(\d{4}-\d{2}-\d{2})\s?上映')
-    published_at = re.search(published_at_pattern, html).group(1).strip() if re.search(published_at_pattern, html) else None
-
-    drama_pattern = re.compile('<div.*?class="drama".*?<p.*?>(.*?)</p>', re.S)
-    drama = re.search(drama_pattern, html).group(1).strip() if re.search(drama_pattern, html) else None
-
-    score_pattern = re.compile('<p.*?score.*?>(.*?)</p>', re.S)
-    score = re.search(score_pattern, html).group(1).strip() if re.search(score_pattern, html) else None
+    """html：详情页的html代码，字符串类型
+    功能：解析详情页，返回包含数据的字典"""
+    tree = etree.HTML(html)
+    #封面的url
+    cover_url = tree.xpath(
+        '//*[@id="detail"]/div[1]/div/div/div[1]/div/div[1]/a/img/@src')[0]
+    #电影的名称
+    name = tree.xpath(
+        '//*[@id="detail"]/div[1]/div/div/div[1]/div/div[2]/a/h2/text()')[0]
+    # 电影的类别
+    categories = tree.xpath(
+        '//*[@id="detail"]/div[1]/div/div/div[1]/div/div[2]/div[1]//span/text()')
+    # 对所获得的电影类别，进行处理
+    categories = '-'.join(categories)
+    # 电影的上映时间
+    published_ats = tree.xpath(
+        '//*[@id="detail"]/div[1]/div/div/div[1]/div/div[2]/div[3]/span/text()')
+    # 判断电影的上映时间是否为空，如果不为空，则等于本身；否则为空的字符串
+    published_at = published_ats if published_ats else ''
+    # 评分
+    score = tree.xpath(
+        '//*[@id="detail"]/div[1]/div/div/div[1]/div/div[3]/p[1]/text()')[0]
+    # 除去字符周围的空格
+    score = score.strip()
 
     return {
-        'cover': cover,
+        'cover': cover_url,
         'name': name,
         'categroies': categories,
         'published_at': published_at,
-        'drama': drama,
         'score': score
     }
 
@@ -295,37 +243,35 @@ if __name__ == '__main__':
 
 ```python
 import pymysql
-'''
-0、本地mysql建立cui_spider数据库
-1、连接本地数据库
-2、建立游标
-'''
+
 def connectDB():
+    """ 
+        连接本地数据库
+    """
     dbhost = "127.0.0.1"
-    dbName = "cui_spider"
+    dbname = "你自己的数据库名"
     dbuser = "your mysql username"
     dbpassword = "your mysql password"
     # 此处添加charset='utf8'是为了在数据库中显示中文，此编码必须与数据库的编码一致
-    db = pymysql.connect(host=dbhost, user=dbuser, password=dbpassword, database = dbName, charset='utf8')
+    db = pymysql.connect(host=dbhost, user=dbuser, password=dbpassword, 
+                         database = dbname, charset='utf8')
     return db
 
-'''
-创建电影表
-'''
+
 def create_table():
+    """创建电影表"""
     cursor = connectDB().cursor()
-    #如果存在student表，则删除
+    #如果存在 movie 表，则删除
     cursor.execute("DROP TABLE IF EXISTS movie")
 
-    #创建student表
+    #创建 movie表
     sql = """
         create table movie(
         cover varchar(256),
         name varchar(256),
         categories varchar(256),
         published_at varchar(256),
-        drama varchar(1024),
-        score varchar(10));
+        score varchar(16));
     """
 
     try:
@@ -338,19 +284,19 @@ def create_table():
 '''
 写一个插入函数
 '''
-def insert_function(cover, name, categories, published_at, drama, score):
-    DB_insert = connectDB()
-    cursor_insert = DB_insert.cursor()
-    insert_sql = 'insert into movie (cover, name, categories, published_at, drama, score)values(%s, %s, %s, %s, %s, %s)'
+def insert_function(cover, name, categories, published_at,score):
+    """将数据插入到数据库中"""
+    db_insert = connectDB()
+    cursor_insert = db_insert.cursor()
+    insert_sql = 'insert into movie (cover, name, categories, published_at,  score)values(%s, %s, %s, %s, %s)'
     cursor_insert.execute(insert_sql, (cover, name, categories, published_at, drama, score))
     DB_insert.commit()
     DB_insert.close()
 
 
-'''
-根据TOTAL_PAGE进行遍历，logging.info()输出数据
-'''
+
 def main():
+    """根据TOTAL_PAGE进行遍历，logging.info()输出数据"""
     create_table()
     for page in range(1, TOTAL_PAGE + 1):
         index_html = scrape_index(page)
@@ -358,7 +304,7 @@ def main():
         for detail_url in detail_urls:
             detail_html = scrape_detail(detail_url)
             data = parse_detail(detail_html)
-            insert_function(data['cover'], data['name'], data['categories'], data['published_at'], data['drama'], data['score'])
+            insert_function(data['cover'], data['name'], data['categories'], data['published_at'], data['score'])
             logging.info('get detail data %s', data)
         # logging.info('detail urls %s', list(detail_urls))
 
@@ -368,137 +314,104 @@ if __name__ == '__main__':
 
 
 
-### 4.4使用多进程
-
-完整代码
+### 2.4.4 完整代码
+&emsp;&emsp;上面我们对整个代码进行分步的实现，下面是完整的代码。
 
 ```python
 import requests
+from lxml import etree
 import logging
-import re
 from urllib.parse import urljoin
 import pymysql
+from time import sleep
+import random
 
-
-'''
-定义基础变量
-设置日志等级和日志格式
-'''
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s: %(message)s')
+logging.basicConfig(level=logging.INFO,
+                    format='%(asctime)s - %(levelname)s: %(message)s')
 
 BASE_URL = 'https://ssr1.scrape.center'
 TOTAL_PAGE = 10
 
-'''
-判断状态码是否是200，如果是，直接返回页面的HTML代码，如果不是，则输出错误日志信息
-同时实现了requests库的异常处理，在logging库中error方法里设置了exc_info=True，可以打印出Traceback错误堆栈信息
-'''
+
 def scrape_page(url):
-    logging.info('scraping %s...', url)
+    logging.info('scraping %s....', url)
     try:
+        sleep(random.randint(1, 5))
         response = requests.get(url)
+
         if response.status_code == 200:
             return response.text
-        # 创建一条严重级别为ERROR的日志记录
-        logging.error('get invalid status code %s while scraping %s', response.status_code, url)
+        logging.error('get invalid status code %s while scraping %s',
+                      response.status_code, url)
     except requests.RequestException:
-        #创建一条严重级别为ERROR的日志记录
         logging.error('error occurred while scraping %s', url, exc_info=True)
 
-'''
-接收page参数，实现列表页URL拼接，同时调用scrape_page()函数实现页面爬取
-'''
+
 def scrape_index(page):
     index_url = f'{BASE_URL}/page/{page}'
     return scrape_page(index_url)
 
-'''
-我们先前指导知道a标签里面的href属性与网站的根目录拼接正好是电影详情页的url
-因此我们用正则把所有a标签的href属性找出来
-<a.*?href="(.*?)".*?class="name">
-.*?是非贪婪匹配任意字符，也就是找上面那种格式中()内的内容
-使用re.findall()找到html内所有匹配的值
-这里函数的结尾使用了yield，使得函数变成一个对象，一个迭代器
-'''
+
 def parse_index(html):
-    pattern = re.compile('<a.*?href="(.*?)".*?class="name">')
-    items = re.findall(pattern, html)
-    if not items:
-        return []
-    for item in items:
-        detail_url = urljoin(BASE_URL, item)
+    tree = etree.HTML(html)
+    divs = tree.xpath('//*[@id="index"]/div[1]/div[1]/div')
+    for div in divs:
+        href = div.xpath('./div/div/div[1]/a/@href')[0]
+        detail_url = urljoin(BASE_URL, href)
         logging.info('get detail url %s', detail_url)
         yield detail_url
 
-'''
-获取html页面
-'''
+
 def scrape_detail(url):
+    """获取详情页的html"""
     return scrape_page(url)
 
-'''
-根据正则表达式提取所需数据
-返回数据字典
-'''
+
 def parse_detail(html):
-    cover_pattern = re.compile('class="item.*?<img.*?src="(.*?)".*?class="cover">', re.S)
-    cover = re.search(cover_pattern, html).group(1).strip() if re.search(cover_pattern, html) else None
+    """提取详情页的数据"""
+    tree = etree.HTML(html)
+    cover_url =tree.xpath('//*[@id="detail"]/div[1]/div/div/div[1]/div/div[1]/a/img/@src')[0]
+    # cover = requests.get(cover_url).content
+    name = tree.xpath(
+        '//*[@id="detail"]/div[1]/div/div/div[1]/div/div[2]/a/h2/text()')[0]
+    categories = tree.xpath(
+        '//*[@id="detail"]/div[1]/div/div/div[1]/div/div[2]/div[1]//span/text()')
+    categories = '-'.join(categories)
+    published_ats = tree.xpath(
+        '//*[@id="detail"]/div[1]/div/div/div[1]/div/div[2]/div[3]/span/text()')
+    published_at = published_ats if published_ats else ''
+    score = tree.xpath(
+        '//*[@id="detail"]/div[1]/div/div/div[1]/div/div[3]/p[1]/text()')[0]
+    score = score.strip()
+    return {'cover'       : cover_url, 'name': name, 'categroies': categories,
+            'published_at': published_at, 'score': score,
+            }
 
-    name_pattern = re.compile('<h2.*?class="m-b-sm">(.*?)</h2>')
-    name = re.search(name_pattern, html).group(1).strip() if re.search(name_pattern, html) else None
 
-    categories_pattern = re.compile('<button.*?category.*?<span>(.*?)</span>', re.S)
-    categories = re.findall(categories_pattern, html) if re.findall(categories_pattern, html) else []
-
-    published_at_pattern = re.compile('(\d{4}-\d{2}-\d{2})\s?上映')
-    published_at = re.search(published_at_pattern, html).group(1).strip() if re.search(published_at_pattern, html) else None
-
-    drama_pattern = re.compile('<div.*?class="drama".*?<p.*?>(.*?)</p>', re.S)
-    drama = re.search(drama_pattern, html).group(1).strip() if re.search(drama_pattern, html) else None
-
-    score_pattern = re.compile('<p.*?score.*?>(.*?)</p>', re.S)
-    score = re.search(score_pattern, html).group(1).strip() if re.search(score_pattern, html) else None
-
-    return {
-        'cover': cover,
-        'name': name,
-        'categories': str(categories),
-        'published_at': published_at,
-        'drama': drama,
-        'score': score
-    }
-
-'''
-0、本地mysql建立cui_spider数据库
-1、连接本地数据库
-2、建立游标
-'''
 def connectDB():
-    dbhost = "127.0.0.1"
-    dbName = "cui_spider"
-    dbuser = "your mysql username"
-    dbpassword = "your mysql password"
+    dbhost = "localhost"
+    dbName = "xxxx"
+    dbuser = "xxxx"
+    dbpassword = "xxxxx"
     # 此处添加charset='utf8'是为了在数据库中显示中文，此编码必须与数据库的编码一致
-    db = pymysql.connect(host=dbhost, user=dbuser, password=dbpassword, database = dbName, charset='utf8')
+    db = pymysql.connect(host=dbhost, user=dbuser, password=dbpassword,
+                         database=dbName, )
     return db
 
-'''
-创建电影表
-'''
+
 def create_table():
     cursor = connectDB().cursor()
-    #如果存在student表，则删除
+    # 如果存在movie表，则删除
     cursor.execute("DROP TABLE IF EXISTS movie")
 
-    #创建student表
+    # 创建movie表
     sql = """
         create table movie(
         cover varchar(256),
         name varchar(256),
         categories varchar(256),
         published_at varchar(256),
-        drama varchar(2048),
-        score varchar(10));
+        score varchar(16));
     """
 
     try:
@@ -506,23 +419,20 @@ def create_table():
         cursor.execute(sql)
         print("创建电影表成功")
     except Exception as e:
-        print("创建电影表失败：case%s"%e)
+        print("创建电影表失败：case%s" % e)
 
-'''
-写一个插入函数
-'''
-def insert_function(cover, name, categories, published_at, drama, score):
+
+def insert_function(cover, name, categories, published_at, score):
     DB_insert = connectDB()
     cursor_insert = DB_insert.cursor()
-    insert_sql = 'insert into movie (cover, name, categories, published_at, drama, score)values(%s, %s, %s, %s, %s, %s)'
-    cursor_insert.execute(insert_sql, (cover, name, categories, published_at, drama, score))
+    insert_sql = 'insert into movie (cover, name, categories, published_at, score) values (%s, %s, %s, %s, %s)'
+
+    cursor_insert.execute(insert_sql,
+                          (cover, name, categories, published_at, score))
     DB_insert.commit()
     DB_insert.close()
 
 
-'''
-根据TOTAL_PAGE进行遍历，logging.info()输出数据
-'''
 def main():
     create_table()
     for page in range(1, TOTAL_PAGE + 1):
@@ -531,188 +441,11 @@ def main():
         for detail_url in detail_urls:
             detail_html = scrape_detail(detail_url)
             data = parse_detail(detail_html)
-            insert_function(data['cover'], data['name'], data['categories'], data['published_at'], data['drama'], data['score'])
-            logging.info('get detail data %s', data)
-        # logging.info('detail urls %s', list(detail_urls))
+            insert_function(data['cover'], data['name'], data['categroies'],
+                            data['published_at'], data['score'])
+
 
 if __name__ == '__main__':
     main()
+
 ```
-
-这个基本不会报错
-
-
-
-使用多进程版本
-
-```python
-import requests
-import logging
-import re
-from urllib.parse import urljoin
-import pymysql
-import multiprocessing
-
-
-'''
-定义基础变量
-设置日志等级和日志格式
-'''
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s: %(message)s')
-
-BASE_URL = 'https://ssr1.scrape.center'
-TOTAL_PAGE = 10
-
-'''
-判断状态码是否是200，如果是，直接返回页面的HTML代码，如果不是，则输出错误日志信息
-同时实现了requests库的异常处理，在logging库中error方法里设置了exc_info=True，可以打印出Traceback错误堆栈信息
-'''
-def scrape_page(url):
-    logging.info('scraping %s...', url)
-    try:
-        response = requests.get(url)
-        if response.status_code == 200:
-            return response.text
-        # 创建一条严重级别为ERROR的日志记录
-        logging.error('get invalid status code %s while scraping %s', response.status_code, url)
-    except requests.RequestException:
-        #创建一条严重级别为ERROR的日志记录
-        logging.error('error occurred while scraping %s', url, exc_info=True)
-
-'''
-接收page参数，实现列表页URL拼接，同时调用scrape_page()函数实现页面爬取
-'''
-def scrape_index(page):
-    index_url = f'{BASE_URL}/page/{page}'
-    return scrape_page(index_url)
-
-'''
-我们先前指导知道a标签里面的href属性与网站的根目录拼接正好是电影详情页的url
-因此我们用正则把所有a标签的href属性找出来
-<a.*?href="(.*?)".*?class="name">
-.*?是非贪婪匹配任意字符，也就是找上面那种格式中()内的内容
-使用re.findall()找到html内所有匹配的值
-这里函数的结尾使用了yield，使得函数变成一个对象，一个迭代器
-'''
-def parse_index(html):
-    pattern = re.compile('<a.*?href="(.*?)".*?class="name">')
-    items = re.findall(pattern, html)
-    if not items:
-        return []
-    for item in items:
-        detail_url = urljoin(BASE_URL, item)
-        logging.info('get detail url %s', detail_url)
-        yield detail_url
-
-'''
-获取html页面
-'''
-def scrape_detail(url):
-    return scrape_page(url)
-
-'''
-根据正则表达式提取所需数据
-返回数据字典
-'''
-def parse_detail(html):
-    cover_pattern = re.compile('class="item.*?<img.*?src="(.*?)".*?class="cover">', re.S)
-    cover = re.search(cover_pattern, html).group(1).strip() if re.search(cover_pattern, html) else None
-
-    name_pattern = re.compile('<h2.*?class="m-b-sm">(.*?)</h2>')
-    name = re.search(name_pattern, html).group(1).strip() if re.search(name_pattern, html) else None
-
-    categories_pattern = re.compile('<button.*?category.*?<span>(.*?)</span>', re.S)
-    categories = re.findall(categories_pattern, html) if re.findall(categories_pattern, html) else []
-
-    published_at_pattern = re.compile('(\d{4}-\d{2}-\d{2})\s?上映')
-    published_at = re.search(published_at_pattern, html).group(1).strip() if re.search(published_at_pattern, html) else None
-
-    drama_pattern = re.compile('<div.*?class="drama".*?<p.*?>(.*?)</p>', re.S)
-    drama = re.search(drama_pattern, html).group(1).strip() if re.search(drama_pattern, html) else None
-
-    score_pattern = re.compile('<p.*?score.*?>(.*?)</p>', re.S)
-    score = re.search(score_pattern, html).group(1).strip() if re.search(score_pattern, html) else None
-
-    return {
-        'cover': cover,
-        'name': name,
-        'categories': str(categories),
-        'published_at': published_at,
-        'drama': drama,
-        'score': score
-    }
-
-'''
-0、本地mysql建立cui_spider数据库
-1、连接本地数据库
-2、建立游标
-'''
-def connectDB():
-    dbhost = "127.0.0.1"
-    dbName = "cui_spider"
-    dbuser = "your mysql username"
-    dbpassword = "your mysql password"
-    # 此处添加charset='utf8'是为了在数据库中显示中文，此编码必须与数据库的编码一致
-    db = pymysql.connect(host=dbhost, user=dbuser, password=dbpassword, database = dbName, charset='utf8')
-    return db
-
-'''
-创建电影表
-'''
-def create_table():
-    cursor = connectDB().cursor()
-    #如果存在student表，则删除
-    cursor.execute("DROP TABLE IF EXISTS movie")
-
-    #创建student表
-    sql = """
-        create table movie(
-        cover varchar(256),
-        name varchar(256),
-        categories varchar(256),
-        published_at varchar(256),
-        drama varchar(2048),
-        score varchar(10));
-    """
-
-    try:
-        # 执行SQL语句
-        cursor.execute(sql)
-        print("创建电影表成功")
-    except Exception as e:
-        print("创建电影表失败：case%s"%e)
-
-'''
-写一个插入函数
-'''
-def insert_function(cover, name, categories, published_at, drama, score):
-    DB_insert = connectDB()
-    cursor_insert = DB_insert.cursor()
-    insert_sql = 'insert into movie (cover, name, categories, published_at, drama, score)values(%s, %s, %s, %s, %s, %s)'
-    cursor_insert.execute(insert_sql, (cover, name, categories, published_at, drama, score))
-    DB_insert.commit()
-    DB_insert.close()
-
-
-'''
-根据TOTAL_PAGE进行遍历，logging.info()输出数据
-'''
-def main(page):
-    index_html = scrape_index(page)
-    detail_urls = parse_index(index_html)
-    for detail_url in detail_urls:
-        detail_html = scrape_detail(detail_url)
-        data = parse_detail(detail_html)
-        insert_function(data['cover'], data['name'], data['categories'], data['published_at'], data['drama'], data['score'])
-        logging.info('get detail data %s', data)
-
-if __name__ == '__main__':
-    create_table()
-    pool = multiprocessing.Pool()
-    pages = range(1, TOTAL_PAGE + 1)
-    pool.map(main, pages)
-    pool.close()
-    pool.join()
-```
-
-虽然多进程的话快一点，但是这个会有报错的情况
