@@ -92,8 +92,6 @@ ul = html.xpath('//body/div/ul')
 
 ```python
 ul = html.xpath('//body//ul')
-
-
 # 输出结果 ：[<Element ul at 0x18fbf514bc0>]
 ```
 &emsp;&emsp;在这里，我们看到。两者都是选择ul标签，我们所用的表达式是不同的。原因是在用//body/div/ul
@@ -138,7 +136,6 @@ print(href)
 ```python
 ul = html.xpath('//body/div/ul[@class="mui-table-view"]')
 print(ul)
-
 ```
 输出结果如下：
 ```text
@@ -150,7 +147,6 @@ print(ul)
 ```python
 text = html.xpath('//body/div/ul/li[1]/a/text()')
 print(text)
-
 ```
 输出结果如下：
 ```text
@@ -250,12 +246,11 @@ soup = BeautifulSoup(ceshi,'lxml')
 # 如果是文档对象我们可以这样写
 # soup = BeautifulSoup(open(ceshi.html),'lxml')
 # 第二个参数，是我们的所选择的解析器。我们这里选择是lxml。也可以选择html5lib作为解析器。
-
 ```
 
 
 #### 2.2.2.3.2节点选择
-&emsp;&emsp;我们在访问文档树时，我们可以通过调用节点的名称，就可以选择对应的节点。如果我们想选取titlle节点，我们可以用如下写法。
+我们在访问文档树时，我们可以通过调用节点的名称，就可以选择对应的节点。如果我们想选取titlle节点，我们可以用如下写法。
 ``` python
 from bs4 import BeautifulSoup
 soup = BeautifulSoup(ceshi,'lxml')
@@ -277,143 +272,143 @@ print(type(soup.title))
 
 #### 2.2.2.3.3 Tag属性
 - 一般属性
-	- name属性 利用name属性，我们可以获得其节点的名称。
+    - name属性 利用name属性，我们可以获得其节点的名称。
 
-	对应的代码
-```python
-print(soup.title.name)
-```
-	输出效果如下：
-```text
-title
-```
-	我们可以看到，我们获得到我们所对应节点的名字。
+    对应代码：
+    ```python
+    print(soup.title.name)
+    ```
+    输出效果如下：
+    ```text
+    title
+    ```
+    我们可以看到，我们获得到我们所对应节点的名字。
 	
-	- attrs属性
+    - attrs属性
 
-	对于一个Tag对象，可能会有多个属性。例如id class属性。如果我们想获取所选节点的属性，我们可以这样写。代码如下：
-```python
-print(soup.p.attrs)
-```
-	输出结果如下：
-```text
-{'class': ['title']}
-```
-	我们可以看到输出的结果是一个字典形式，包含的是节点的属性与所对应的值。我们要选取属性的值，我们可以这样写。
-```python
-print(soup.p.attrs['class'])
-```
-	输出结果如下：
-```text
-['title']
-```
-	- string属性
+    对于一个Tag对象，可能会有多个属性。例如id class属性。如果我们想获取所选节点的属性，我们可以这样写。代码如下：
+    ```python
+    print(soup.p.attrs)
+    ```
+    输出结果如下：
+    ```text
+    {'class': ['title']}
+    ```
+    我们可以看到输出的结果是一个字典形式，包含的是节点的属性与所对应的值。我们要选取属性的值，我们可以这样写。
+    ```python
+    print(soup.p.attrs['class'])
+    ```
+    输出结果如下：
+    ```text
+    ['title']
+    ```
+    - string属性
 
-	如果我们Tag对象中，只有一个 NavigableString类型的子节点，我们可以使用如下方法获得子节点。这里 NavigableString 其实是节点中包含的节点内容。我们获取title节点下的内容。代码如下：
-```python
-print(soup.title.string)
-```
-	输出结果如下：
-```text
-The Dormouse's story
-```
-	可以看到我们拿到了title节点下所对应的文本内容。
-	
-	如果一个节点下仅有一个子节点,那么这个tag也可以使用 .string 方法获得对应的文本。如第一个p节点下。代码如下：
-```python
-print(soup.p.string)
-```
-	输出结果如下：
-```text
-	The Dormouse's story
-```
-**注意，如果一个节点下，有多个节点，这时我们无法直接调用string属性获取文本内容.**
+    &emsp;&emsp;如果我们Tag对象中，只有一个 NavigableString类型的子节点，我们可以使用如下方法获得子节点。这里 
+  NavigableString 其实是节点中包含的节点内容。我们获取title节点下的内容。代码如下：
+    ```python
+    print(soup.title.string)
+    ```
+    输出结果如下：
+    ```text
+    The Dormouse's story
+    ```
+    可以看到我们拿到了title节点下所对应的文本内容。 如果一个节点下仅有一个子节点,那么这个tag也可以使用 .string 
+  方法获得对应的文本。如第一个p节点下。代码如下：
+    ```python
+    print(soup.p.string)
+    ```
+    输出结果如下：
+    ```text
+    The Dormouse's story
+    ```
+    **注意，如果一个节点下，有多个节点，这时我们无法直接调用string属性获取文本内容.**
 
-	- strings属性
+    - strings属性
 
-	如果一个节点下有多个字符串，我们可以使用strings属性构造循环获得。代码如下：
-```python
-	for i in soup.strings:
-		print(i)
-```
+    如果一个节点下有多个字符串，我们可以使用strings属性构造循环获得。代码如下：
+    ```python
+    for i in soup.strings:
+        print(i)
+    ```
 
-	- stripped_strings属性
+    - stripped_strings属性
 
-	如果节点下有多个字符串，同时包含空格和换行，我们可以使用如下的方法。代码如下：
-```python
-	for i in soup.stripped_strings:
-		print(i)
-```
+    如果节点下有多个字符串，同时包含空格和换行，我们可以使用如下的方法。代码如下：
+    ```python
+    for i in soup.stripped_strings:
+        print(i)
+    ```
 
 - 子节点
-	- contents属性
+    - contents属性
 
-	Tag的 contents 属性可以将tag的子节点以列表的方式输出。代码如下：
-	```python
-	print(soup.body.contents)
-	```
-	输出效果如下：
-```text
-['\n', <p class="title"><b>The Dormouse's story</b></p>, '\n', <p class="story">Once upon a time there were three little sisters; and their names were
-	<a class="sister" href="http://example.com/elsie" id="link1">Elsie</a>,
-	<a class="sister" href="http://example.com/lacie" id="link2">Lacie</a> and
-	<a class="sister" href="http://example.com/tillie" id="link3">Tillie</a>;
-	and they lived at the bottom of a well.</p>, '\n', <p class="story">...</p>, '\n']
-```
-	- children属性
+    Tag的 contents 属性可以将tag的子节点以列表的方式输出。代码如下：
+    ```python
+    print(soup.body.contents)
+    ```
+    输出效果如下：
+    ```text
+    ['\n', <p class="title"><b>The Dormouse's story</b></p>, '\n', <p class="story">Once upon a time there were three little sisters; and their names were
+    <a class="sister" href="http://example.com/elsie" id="link1">Elsie</a>,
+    <a class="sister" href="http://example.com/lacie" id="link2">Lacie</a> and
+    <a class="sister" href="http://example.com/tillie" id="link3">Tillie</a>;
+    and they lived at the bottom of a well.</p>, '\n', <p class="story">...</p>, '\n']
+    ```
+    - children属性
 
-	Tag对象将tag的子节点返回一个可迭代对象，我们可以使用循环输出内容，代码如下：
-```python
-	for i in soup.body.children:
-	    print(i)
-```
-	输出结果如下：
-```text
-	<p class="title"><b>The Dormouse's story</b></p>
-	<p class="story">Once upon a time there were three little sisters; and their names were
-	<a class="sister" href="http://example.com/elsie" id="link1">Elsie</a>,
-	<a class="sister" href="http://example.com/lacie" id="link2">Lacie</a> and
-	<a class="sister" href="http://example.com/tillie" id="link3">Tillie</a>;
-	and they lived at the bottom of a well.</p>
-```
+    Tag对象将tag的子节点返回一个可迭代对象，我们可以使用循环输出内容，代码如下：
+    ```python
+    for i in soup.body.children:
+        print(i)
+    ```
+    输出结果如下：
+    ```text
+    <p class="title"><b>The Dormouse's story</b></p>
+    <p class="story">Once upon a time there were three little sisters; and their names were
+    <a class="sister" href="http://example.com/elsie" id="link1">Elsie</a>,
+    <a class="sister" href="http://example.com/lacie" id="link2">Lacie</a> and
+    <a class="sister" href="http://example.com/tillie" id="link3">Tillie</a>;
+    and they lived at the bottom of a well.</p>
+    ```
 	
 - 父节点
 
-&emsp;&emsp;查看我们示例代码，我们可以看到对于一个节点，也就是tag，都有父节点。我们可以通过一下两个tag属性获得。
+    查看我们示例代码，我们可以看到对于一个节点，也就是tag，都有父节点。我们可以通过一下两个tag属性获得。 
 
-	- parent属性
+  - parent属性
 
-	通过parent属性，我们可以获得某个元素的父节点。代码如下：
-```python
-	print(soup.p.parent)
-```
-	输出效果如下：
-```text
-	<body>
-	<p class="title"><b>The Dormouse's story</b></p>
-	<p class="story">Once upon a time there were three little sisters; and their names were
-	<a class="sister" href="http://example.com/elsie" id="link1">Elsie</a>,
-	<a class="sister" href="http://example.com/lacie" id="link2">Lacie</a> and
-	<a class="sister" href="http://example.com/tillie" id="link3">Tillie</a>;
-	and they lived at the bottom of a well.</p>
-	<p class="story">...</p>
-	</body>
-```
-	我们可以看到我们获得了p节点的父节点，也就是body节点。
+     通过parent属性，我们可以获得某个元素的父节点。代码如下：
+     ```python
+     print(soup.p.parent)
+     ```
+     输出效果如下：
+     ```text
+     <body>
+     <p class="title"><b>The Dormouse's story</b></p>
+     <p class="story">Once upon a time there were three little sisters; and their names were
+     <a class="sister" href="http://example.com/elsie" id="link1">Elsie</a>,
+     <a class="sister" href="http://example.com/lacie" id="link2">Lacie</a> and
+     <a class="sister" href="http://example.com/tillie" id="link3">Tillie</a>;
+     and they lived at the bottom of a well.</p>
+     <p class="story">...</p>
+     </body>
+     ```
+     我们可以看到我们获得了p节点的父节点，也就是body节点。
 	
-	- parents属性
+  - parents属性
 
-	通过parents属性，我们可以递归查到某个元素的父节点的父节点，也就是祖先节点。代码如下：
-```python
+    通过parents属性，我们可以递归查到某个元素的父节点的父节点，也就是祖先节点。代码如下：
+	```python
 	for i in soup.p.parents:
-	    print(i.name)
-```
+	print(i.name)
+	```
 	输出结果如下:
-```text
+	```text
 	body
 	html
 	[document]
-```
+	```
 
 - 兄弟节点
 
@@ -433,9 +428,9 @@ print(soup.p.string)
 	- previous_sibling和previous_siblings属性
 
 	previous_sibling属性来查看节点的上一个兄弟节点。代码如下：
-```python
+	```python
 	print(soup.a.previous_sibling)
-```
+	```
 	输出结果如下：
 	```text
 	Once upon a time there were three little sisters; and their names were
@@ -449,83 +444,83 @@ print(soup.p.string)
 	
 	find_all方法的作用是返回当前节点的所有的子节点，以列表的形式返回。首先我们先看下它的API：
 	> find_all( name , attrs , recursive , string , **kwargs )
-	- name参数
+    - name参数
 
-		作用：name 参数可以查找所有名字为 name 的节点,字符串对象会被自动忽略掉。name参数接收字符串类型，正则表达式，还有列表类型。
-		
-		简单使用：
-```python
+        作用：name 参数可以查找所有名字为 name 的节点,字符串对象会被自动忽略掉。name参数接收字符串类型，正则表达式，还有列表类型。
+	
+    简单使用：
+	```python
 	#搜索名为title的节点
 	print(soup.find_all('title'))
-```
-		输出结果如下：
-```text
-[<title>The Dormouse's story</title>]
-```
-	- attrs参数
+	```
+    输出结果如下：
+	```text
+	[<title>The Dormouse's story</title>]
+	```
+    - attrs参数
 	
-		作用：attrs参数可以根据属性来进行查找相对应的节点。
-		
-		简单使用：
-```python
+        作用：attrs参数可以根据属性来进行查找相对应的节点。
+  
+	简单使用：
+    ```python
 	#搜索第一个p节点
 	print(soup.find_all(attrs={'class':'title'}))
-```
-		输出结果如下：
-```text
-[<p class="title"><b>The Dormouse's story</b></p>]
-```
-		我们可以看到，我们在使用attrs时，我们传入的是一个字典类型。返回的是符合条件的所有节点。如果一个节点有两个属性，不知道你会不会写呢？
+    ```
+    输出结果如下：
+    ```text
+    [<p class="title"><b>The Dormouse's story</b></p>]
+    ```
+    我们可以看到，我们在使用attrs时，我们传入的是一个字典类型。返回的是符合条件的所有节点。如果一个节点有两个属性，不知道你会不会写呢？
 		
 	- recursive参数
 	
 		作用：recursive的值是一布尔类型的。默认是True，搜索当前节点的所有子孙节点；如果是False，则搜索当前节点的所有直接子节点。
 		
-		简单使用：
-```python
-print(soup.find_all("title", recursive=True))
-print(soup.find_all('title', recursive=False))
-```
-		输出结果如下：
-```text
-[<title>The Dormouse's story</title>]
-[]
-```
+	简单使用：
+    ```python
+    print(soup.find_all("title", recursive=True))
+    print(soup.find_all('title', recursive=False))
+    ```
+    输出结果如下：
+    ```text
+    [<title>The Dormouse's story</title>]
+    []
+    ```
 
 	- string参数
 
 		作用：通过string参数，我们可以搜索到文档中的字符串内容。string参数接收字符串类型，正则表达式，还有列表类型。
 		
-		简单使用
-```python
-print(soup.find_all(string='Elsie'))
-print(soup.find_all(string=["Tillie", "Elsie", "Lacie"]))
-print(soup.find_all(string=re.compile("Dormouse")))
-```
-		输出结果：
-```text
-['Elsie']
-['Elsie', 'Lacie', 'Tillie']
-["The Dormouse's story", "The Dormouse's story"]
-```
+	简单使用
+    ```python
+    print(soup.find_all(string='Elsie'))
+    print(soup.find_all(string=["Tillie", "Elsie", "Lacie"]))
+    print(soup.find_all(string=re.compile("Dormouse")))
+    ```
+	输出结果：
+    ```text
+    ['Elsie']
+    ['Elsie', 'Lacie', 'Tillie']
+    ["The Dormouse's story", "The Dormouse's story"]
+    ```
 
 	- **kwargs
 	
 		作用：find_all中内置了一些关键词参数。通过关键词参数，简化一些代码或者提供一种搜索方式。
 		
-		简单使用：
-```python
-#如果一个指定名字的参数不是搜索内置的参数名,搜索时会把该参数当作指定名字tag的属性来搜索
-print(soup.find_all(id='lin2'))
-#我们也可以按照css类名来进行选择，这时需要用到_class关键词参数。
-print(soup.find_all(class_='sister')
-```
-		输出结果如下：
-```text
-[<a class="sister" href="http://example.com/elsie" id="link1">Elsie</a>]
-[<a class="sister" href="http://example.com/elsie" id="link1">Elsie</a>, <a class="sister" href="http://example.com/lacie" id="link2">Lacie</a>, <a class="sister" href="http://example.com/tillie" id="link3">Tillie</a>]
-```
-好了，我们已经把find_all方法介绍完了。现在来看下find方法。
+	简单使用：
+    ```python
+    #如果一个指定名字的参数不是搜索内置的参数名,搜索时会把该参数当作指定名字tag的属性来搜索
+    print(soup.find_all(id='lin2'))
+    #我们也可以按照css类名来进行选择，这时需要用到_class关键词参数。
+    print(soup.find_all(class_='sister')
+    ```
+    输出结果如下：
+    ```text
+    [<a class="sister" href="http://example.com/elsie" id="link1">Elsie</a>]
+    [<a class="sister" href="http://example.com/elsie" id="link1">Elsie</a>, <a class="sister" href="http://example.com/lacie" id="link2">Lacie</a>, <a class="sister" href="http://example.com/tillie" id="link3">Tillie</a>]
+    ```
+    好了，我们已经把find_all方法介绍完了。现在来看下find方法。
 
 - find方法
 
@@ -538,7 +533,7 @@ print(soup.find_all(class_='sister')
 
 	除了上面的两种方法外还有如下几种方法，我将他们进行简单列举出来。希望对大家有些帮助。
 |方法					|作用							|
-|--						|--								|
+|---					|--								|
 |find_parents			|返回所有祖先点					|
 |find_parent			|返回直接父节点					|
 |find_next_siblings		|返回后面的所有兄弟节点			|
