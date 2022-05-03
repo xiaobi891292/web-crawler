@@ -6,7 +6,9 @@
 
 &emsp;&emsp;在编写 Items 文件中的代码前，我们先来了解下 Item。
 
-&emsp;&emsp;爬虫的目的是从网页中提取结构化的数据。在Scrapy框架中，Spider会返回抓取的数据作为键值对的Item对象。Scrapy框架中有多种类型的Item可以选择。但我们要记住一点，我们编写出的接收Item的代码，应该适用于任何Item 对象类型。下面列出了 Scrapy 支持 Item 类型。
+&emsp;&emsp;爬虫的目的是从网页中提取结构化的数据。在 Scrapy 框架中，Spider 会返回抓取的数据作为键值对的 Item 
+对象。Scrapy 框架中有多种类型的Item可以选择。但我们要记住一点，我们编写出的接收 Item 的代码，应该适用于任何 Item 对象类型。下面列出了 
+Scrapy 支持 Item 类型。
 
 - Item类型
   - Dictionaries
@@ -45,7 +47,7 @@ Item对象除了提供字典的方法，也提供了以下API：
 &emsp;&emsp;上面我们引用了Scrapy官方文档中对Item的介绍，描述中可能有些许错误，具体以官方文档为准。
 
 ## 3.4.2 Item的编写
-&emsp;&emsp;通过上面的学习，想必你已经了解Item，现在开始进行编写吧！！！在项目文件夹中找到items.py文件并打开。原始代码如下：
+&emsp;&emsp;通过上面的学习，想必你已经了解 Item，现在开始进行编写吧！！！在项目文件夹中找到 items.py 文件并打开。原始代码如下：
   ```python
 # Define here the models for your scraped items
 #
@@ -108,7 +110,8 @@ class QuotesSpider(scrapy.Spider):
 
 ## 3.4.4 总结
 
-&emsp;&emsp;在本小节中，我们学习Item,并编写了item.py文件，同时也对上一节为编写的内容进行完善。下一小节，我们会将爬取的数据存储到数据库中,并学习Item Pipelines相关知识，编写 pipelines.py 文件。
+&emsp;&emsp;在本小节中，我们学习 Item,并编写了 item.
+py文件，同时也对上一节为编写的内容进行完善。下一小节，我们会将爬取的数据存储到数据库中,并学习Item Pipelines相关知识，编写 pipelines.py 文件。
 
 ------- 
 

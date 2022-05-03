@@ -1,13 +1,13 @@
 # 3.5Item Pipeline介绍和编写
 
-&emsp;&emsp;在上一小节中，我们学习了item，并对其进行代码的编写。不知道小伙伴们掌握了没？本小节，我们将学习**Item 
+&emsp;&emsp;在上一节中，我们学习了 Item，并对其进行代码的编写。不知道小伙伴们掌握了没？本小节，我们将学习**Item 
 Pipeline**，并实现将数据存储到数据库中的功能。让我们来一起了解下吧！！！
 
 ## 3.5.1 Item Pipeline简单介绍
 
-&emsp;&emsp;Item Pipeline是一个python类，它接收一个Item,
-并且对其执行操作。同时，决定该Item是否继续执行，还是被丢弃。整个流程就是，当spider抓取一个Item时，该Item传递给Item 
-Pipeline。在Item Pipeline中，根据我们定义的方法进行处理该Item。可以说，Item Pipeline是处理Item的中间件。
+&emsp;&emsp;Item Pipeline 是一个 python 类，它接收一个 Item,
+并且对其执行操作。同时，决定该 Item 是否继续执行，还是被丢弃。整个流程就是，当 spider 抓取一个 Item 时，该Item传递给 Item 
+Pipeline。在 Item Pipeline 中，根据我们定义的方法进行处理该 Item。可以说，Item Pipeline 是处理 Item 的中间件。
 
 &emsp;&emsp;在Item Pipeline中，我们可以实现以下功能：
 
@@ -46,8 +46,8 @@ Pipelien呢？
 
 ## 3.5.3 Item Pipeline编写
 &emsp;&emsp;上面我们已经对Item 
-Pipeline进行了深度介绍，不知道小伙伴掌握了没？如果没掌握的话，也没事。下面我们将编写代码，我们可以利用这次机会来加深下对Item 
-Pipeline的认识。
+Pipeline 进行了深度介绍，不知道小伙伴掌握了没？如果没掌握的话，也没事。下面我们将编写代码，我们可以利用这次机会来加深下对Item 
+Pipeline 的认识。
 
 在项目目录中找到pipelines.py文件，我们将在该文件中编写代码。在没编写前，文件是这个样子的。
 ```python
@@ -82,7 +82,7 @@ DATABASE = '你自己的数据库名'
 ROBOTSTXT_OBEY = False
 USER_AGENT = '你自己的UESR_AGENT'
 ```
-我们调用from_crawler类方法，从而在Item Pipeline中拿到这些配置信息。
+我们调用 from_crawler 类方法，从而在 Item Pipeline 中拿到这些配置信息。
 ```python
 class TutorialPipeline:
     @classmethod

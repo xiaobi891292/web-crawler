@@ -16,21 +16,20 @@ class QuotesSpider(scrapy.Spider):
 
     def parse(self, response):
         pass
-
 ```
 &emsp;&emsp;在quotes.py文件里，Scrapy 已经自动生成了一些内容。 QuotesSpider 继承了 Scrapy.Spider 的类，类中有三个属性，一个方法。
 
 - **name**: 你自己的指定的爬虫名，在命令行中已经指定了。这个属性的值必须是唯一的。
 - **allowed_domains**: 一个可选的字符串列表，其中包含允许爬取的域名。如果初始或后续的请求链接不是这个域名下的，则请求会被过滤。
 - **start_urls**: 一个 url 列表，Spider 将从此列表中的 url 开始爬取。初始的请求由它来定义。
-- **parse**：parse是Spider的一个默认方法。不指定处理方法时，则默认被调用用来处理Response。
+- **parse**：parse方法是Spider的一个默认方法。不指定处理方法时，则默认被调用用来处理Response。
 
 
 ## 3.3.2 Spider类再认识
 &emsp;&emsp;经过上面的学习，相信你对 Spider 已经有了一些认识。但如果想要实现自己的需求，我们还需要充分了解下 Spider类。
 
-&emsp;&emsp;**Spider类定义了如何抓取某个网站，包括如何抓取（是否要follow
-链接）和如何提取结构化数据。换句话说，Spider是你定义抓取和分析特定网站的地方。**
+&emsp;&emsp;Spider类定义了如何抓取某个网站，包括如何抓取（是否要follow
+链接）和如何提取结构化数据。换句话说，Spider是你定义抓取和分析特定网站的地方。
 
 &emsp;&emsp;Spider整个抓取过程如下：
 
@@ -50,7 +49,7 @@ class QuotesSpider(scrapy.Spider):
 - **name**: **str**， 定义爬虫名字。
 - **allowed_domains**：**list**，是由允许抓取的站点的字符串组成的列表。
 - **start_urls**：**list**，Spider 定义开始抓取的url的列表，初始请求从这里生成。
-- **custom_settings**：**dict** 定义本Spider
+- **custom_settings**：**dict**，定义本Spider
   的设置，此设置会覆盖项目的全局设置，而此设置必须在初始化前被更新，所以它必须定义成类变量。
 - **crawler**：该属性由from_crawler()
   类方法在初始化类后设置的。Crawler 对象中包含了很多项目组件，利用它我们可以获取项目的配置信息。

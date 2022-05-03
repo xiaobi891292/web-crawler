@@ -12,11 +12,11 @@ settings**。同时，设置模块应该在搜索路径上。
 
 ### 3.6.1.2使用设置
 &emsp;&emsp;scrapy中的设置更改有着不同的方法，这些方法优先级不同。下面根据优先级列出了方法。
-- 通过命令行进行设置。
+1. 通过命令行进行设置。
 ```commandline
 scrapy crawl myspider -s LOG_FILE=scrapy.log
 ```
-- 每个爬虫的设置。例如在quotes.py中设置
+2. 每个爬虫的设置。例如在quotes.py中设置
 ```python
 class QuotesSpider(scrapy.Spider):
     name = 'quotes'
@@ -24,13 +24,13 @@ class QuotesSpider(scrapy.Spider):
         'SOME_SETTING':'some value',
     }
 ```
-- 在设置模块（settings.py）中设置。
-- 每个命令的默认设置。
+3. 在设置模块（settings.py）中设置。
+4. 每个命令的默认设置。
 ```text
 每个Scrapytool命令行都有自己的默认设置，默认设置将覆盖全局设置。
 这些命令行工具的命令设置可以在命令类的default_settings属性中指定。
 ```
-- 默认全局设置。
+5. 默认全局设置。
 ```text
 全局的默认设置在scrapy.settings.default_settings模块。
 ```
