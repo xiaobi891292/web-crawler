@@ -18,3 +18,8 @@
       * [3.5 Item Pipelines介绍与应用](chapter03/section05.md)
       * [3.6 项目设置与运行](chapter03/section06.md)
       * [3.7 写在后面的话](chapter03/section07.md)
+    * 第4章 Selenium
+      * [4.1 Selenium介绍和环境准备](chapter04/section1.md)
+      * [4.2 Selenium使用](chapter04/section2.md)
+      * [4.3 Selenium爬虫实战](chapter04/section3.md)
+      * [4.4 Selenium](chapter04/section4.md)
