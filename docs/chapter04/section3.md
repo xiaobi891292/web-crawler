@@ -15,9 +15,7 @@
 拿到的，然后通过JavaScript 渲染后呈现在眼前的。可以通过开发者工具，可以查看到。
 ![](../images/chapter04/03.png)
 
-&emsp;&emsp;点开详情页，通过浏览器开发者工具，也可以看到，数据获取也是通过 Ajax
-获得。既然知道了数据的获取方式，就需要了解网站的翻页逻辑。点击翻页按钮，可以看到原先的https://spa1.scrape.center/page/1 
-已经变为 https://spa1.scrape.center/page/2，再继续观察其他页面的url，发现分页的url是有规律的，每个网页的分页都是https://spa1.scrape.center/page/页数。因此，就可以构造出这些页面的url进行爬取。
+&emsp;&emsp;点开详情页，通过浏览器开发者工具，也可以看到，数据获取也是通过 Ajax获得。既然知道了数据的获取方式，就需要了解网站的翻页逻辑。点击翻页按钮，可以看到原先的https://spa1.scrape.center/page/1 已经变为 https://spa1.scrape.center/page/2 ，再继续观察其他页面的url，发现分页的url是有规律的，每个网页的分页都是 https://spa1.scrape.center/page/页数 。因此，就可以构造出这些页面的url进行爬取。
 
 &emsp;&emsp;分析了网站，就可以正式编写爬虫代码了。
 
