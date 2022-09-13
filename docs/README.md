@@ -20,7 +20,13 @@
   
 
 ## 参考文献
-待完善
+- 《pyhon3网络爬虫实战第二版》
+- Requests官方文档
+- Beautiful Soup官方文档
+- [绿叶学习网](http://www.lvyestudy.com/css)
+- 《MYSQL必知必会》
+- Scrapy官方文档
+- Selenium官方文档
 
 ## 主要贡献者
 感谢以下同学对本项目推进做出的贡献（排名不分先后）：
