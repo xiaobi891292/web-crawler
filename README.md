@@ -10,10 +10,13 @@
 本项目《网络爬虫技术导论》为Datawhale的开源项目，主要采用Python编程语言，介绍网络爬虫开发中使用到的技术知识和相关工具的使用。
 
 ## 自学指南
-- 建议自学时长：xx天
+- 建议自学时长：11天
 - 自学形式：
 - 学习安排（待补充）：
-    - Task01（3天）：阅读第1章的第1.1、1.2节
+    - Task01（3天）：阅读第一章
+    - Task02（3天）：阅读第二章
+    - Task03（3天）：阅读第三章
+    - Task04（2天）：阅读第四章
 
 ## 项目结构
 <pre>
@@ -46,7 +49,13 @@ docsify serve ./docs
 ```
 
 ## 参考文献
-待完善
+- 《pyhon3网络爬虫实战第二版》
+- Requests官方文档
+- Beautiful Soup官方文档
+- [绿叶学习网](http://www.lvyestudy.com/css)
+- 《MYSQL必知必会》
+- Scrapy官方文档
+- Selenium官方文档
 
 ## 主要贡献者
 感谢以下同学对本项目推进做出的贡献（排名不分先后）：
@@ -72,7 +81,7 @@ docsify serve ./docs
         <a href="https://github.com/Relph1119">Github</a>
     </td>
   </tr>
-    <tr>
+  <tr>
     <td><span style="font-weight:normal;font-style:normal;text-decoration:none">程钰俊</span></td>
     <td><span style="font-weight:normal;font-style:normal;text-decoration:none">数据工程师，Datawhale成员，主要贡献者</span></td>
     <td>

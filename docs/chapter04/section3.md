@@ -153,3 +153,13 @@ if __name__ == '__main__':
             save_data(result)
     driver.close()
 ```
+10. 完整代码
+
+&emsp;&emsp;代码编写已经完成，查看完整代码点击[完整代码](https://xiaobi891292.github.io/web-crawler/#/codes/ch04/section3.md)
+
+## 4.3.4 小结
+&emsp;&emsp;本小节通过一个练习项目来具体学习 Selenium 在网络爬虫的应用。大家多多练习，早日掌握 Selenium。可能还有许多应用没有讲到，大家还是要多多探索。
+
+- 参考资料
+  - 《pyhon3网络爬虫实战第二版》
+  - [Selenium官方文档](https://www.selenium.dev/)

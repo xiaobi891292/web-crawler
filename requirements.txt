@@ -3,3 +3,6 @@ wincertstore==0.2
 requests==2.20.0
 pymysql==0.10.1
 scrapy==2.5.0
+Selenium==4.1.0
+lxml==4.6.3
+beautifulsoup4==4.10.0

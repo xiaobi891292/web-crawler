@@ -22,4 +22,3 @@
       * [4.1 Selenium介绍和环境准备](chapter04/section1.md)
       * [4.2 Selenium使用](chapter04/section2.md)
       * [4.3 Selenium爬虫实战](chapter04/section3.md)
-      * [4.4 Selenium](chapter04/section4.md)
